@@ -55,13 +55,12 @@ class _MyHomePageState extends State<MyHomePage> {
 
           mainAxisAlignment: MainAxisAlignment.center,
           children: <Widget>[
-            const Text(
-              ':اهلا وسهلا',
-            ),
-            Text(
-              '$_counter',
-              style: Theme.of(context).textTheme.headlineMedium,
-            ),
+            Text("Email :" , style:TextStyle( fontSize : 20) ,),
+
+            Text("Password :" , style:TextStyle( fontSize : 20) ,),
+            Text("City :" , style:TextStyle( fontSize : 20) ,),
+
+    
           ],
         ),
       ),
