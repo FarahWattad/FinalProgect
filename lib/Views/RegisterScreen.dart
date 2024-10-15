@@ -1,9 +1,5 @@
 import 'package:flutter/material.dart';
 
-void main() {
-  runApp(const MyApp());
-}
-
 class MyApp extends StatelessWidget {
   const MyApp({super.key});
 
@@ -50,7 +46,7 @@ class _MyHomePageState extends State<MyHomePage> {
           mainAxisAlignment: MainAxisAlignment.center,
           children: <Widget>[
             Container(
-              padding: 
+              padding:
               EdgeInsets.all(50),
               child: Image.asset('Images/3shahtat.png'),
             ),
@@ -60,39 +56,39 @@ class _MyHomePageState extends State<MyHomePage> {
             ),
             Container(
               width: 500,
-            child :TextField(
-              decoration: InputDecoration(
-                border: OutlineInputBorder(),
-                hintText: 'Enter Email Or Phone',
+              child :TextField(
+                decoration: InputDecoration(
+                  border: OutlineInputBorder(),
+                  hintText: 'Enter Email Or Phone',
+                ),
               ),
-            ),
             ),
             Text(
               "Password :",
               style: TextStyle(fontSize: 20),
             ),
-        Container(
-          width: 500,
-          child : TextField(
-              decoration: InputDecoration(
-                border: OutlineInputBorder(),
-                hintText: 'Enter Password',
+            Container(
+              width: 500,
+              child : TextField(
+                decoration: InputDecoration(
+                  border: OutlineInputBorder(),
+                  hintText: 'Enter Password',
+                ),
               ),
             ),
-        ),
             Text(
               "City :",
               style: TextStyle(fontSize: 20),
             ),
-        Container(
-          width: 500,
-          child :TextField(
-              decoration: InputDecoration(
-                border: OutlineInputBorder(),
-                hintText: 'Enter City',
+            Container(
+              width: 500,
+              child :TextField(
+                decoration: InputDecoration(
+                  border: OutlineInputBorder(),
+                  hintText: 'Enter City',
+                ),
               ),
             ),
-        ),
             TextButton(
               style: ButtonStyle(
                 foregroundColor: MaterialStateProperty.all<Color>(Colors.blue),
