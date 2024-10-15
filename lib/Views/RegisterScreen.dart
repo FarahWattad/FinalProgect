@@ -45,11 +45,6 @@ class _MyHomePageState extends State<MyHomePage> {
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: <Widget>[
-            Container(
-              padding:
-              EdgeInsets.all(50),
-              child: Image.asset('Images/3shahtat.png'),
-            ),
             Text(
               "Email Or Number Phone:",
               style: TextStyle(fontSize: 20),
