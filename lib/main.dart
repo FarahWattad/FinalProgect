@@ -1,3 +1,4 @@
+import 'package:finalproject/Views/RegisterScreen.dart';
 import 'package:flutter/material.dart';
 
 void main() {
@@ -80,32 +81,26 @@ class _MyHomePageState extends State<MyHomePage> {
                 ),
               ),
             ),
-            Text(
-              "City :",
-              style: TextStyle(fontSize: 20),
-            ),
-            Container(
-              width: 500,
-              child: TextField(
-                decoration: InputDecoration(
-                  border: OutlineInputBorder(),
-                  hintText: 'Enter City',
-                ),
-              ),
-            ),
             TextButton(
               style: ButtonStyle(
                 foregroundColor: MaterialStateProperty.all<Color>(Colors.blue),
               ),
               onPressed: () {},
-              child: Text('Rigester'),
+              child: Text('Log In'),
             ),
             TextButton(
               style: ButtonStyle(
                 foregroundColor: MaterialStateProperty.all<Color>(Colors.blue),
               ),
-              onPressed: () {},
+              onPressed: () {                         //מעבר בין מסכים
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(builder: (context)=> const Registerscreen(title :"New Acount")),
+                );
+              },
               child: Text('New Acount'),
+
+
             ),
           ],
         ),
