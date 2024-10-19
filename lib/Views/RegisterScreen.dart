@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 
+import 'HomePageScreen.dart';
+
 class Registerscreen extends StatefulWidget {
   const Registerscreen({super.key, required this.title});
 
@@ -85,7 +87,12 @@ class RegisterscreenPageState extends State<Registerscreen> {
               style: ButtonStyle(
                 foregroundColor: MaterialStateProperty.all<Color>(Colors.blue),
               ),
-              onPressed: () {},
+              onPressed: () {
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(builder: (context)=> const Homepagescreenscreen(title :" HomePage")),
+                );
+              },
               child: Text('Log In'),
             ),
 
