@@ -1,15 +1,17 @@
 import 'package:flutter/material.dart';
 
-class Homepagescreenscreen extends StatefulWidget {
-  const Homepagescreenscreen({super.key, required this.title});
+import 'EditProfile.dart';
+
+class HomePageScreen extends StatefulWidget {
+  const HomePageScreen({super.key, required this.title});
 
   final String title;
 
   @override
-  State<Homepagescreenscreen> createState() => HomepagescreenscreenPageState();
+  State<HomePageScreen> createState() => HomePageScreenPageState();
 }
 
-class HomepagescreenscreenPageState extends State<Homepagescreenscreen> {
+class HomePageScreenPageState extends State<HomePageScreen> {
 
 
   @override
@@ -24,9 +26,26 @@ class HomepagescreenscreenPageState extends State<Homepagescreenscreen> {
           mainAxisAlignment: MainAxisAlignment.center,
           children: <Widget>[
             Text("home"),
+            TextButton(
+                style: ButtonStyle(
+                  foregroundColor: MaterialStateProperty.all<Color>(Colors.blue),
+                ),
+                onPressed: () {
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(builder: (context)=> const EditProfile(title :" EditProfile")),
+                  );
+                },
+                child: Icon(Icons.account_circle)
+            ),
+
+
+
           ],
         ),
       ),
+
+
     );
   }
 }

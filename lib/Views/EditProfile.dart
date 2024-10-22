@@ -2,24 +2,23 @@ import 'package:flutter/material.dart';
 
 import 'HomePageScreen.dart';
 
-class Registerscreen extends StatefulWidget {
-  const Registerscreen({super.key, required this.title});
+class EditProfile extends StatefulWidget {
+  const EditProfile({super.key, required this.title});
 
   final String title;
 
   @override
-  State<Registerscreen> createState() => RegisterscreenPageState();
+  State<EditProfile> createState() => EditProfilePageState();
 }
 
-class RegisterscreenPageState extends State<Registerscreen> {
+class EditProfilePageState extends State<EditProfile> {
   int _counter = 0;
 
-  final _txtEmail= TextEditingController();
-  final _txtPassword= TextEditingController();
-  final _txtPhone= TextEditingController();
-
-
-
+  void _incrementCounter() {
+    setState(() {
+      _counter++;
+    });
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -94,7 +93,7 @@ class RegisterscreenPageState extends State<Registerscreen> {
                   MaterialPageRoute(builder: (context)=> const HomePageScreen(title :" HomePage")),
                 );
               },
-              child: Text('Log In'),
+              child: Text('Save'),
             ),
 
           ],

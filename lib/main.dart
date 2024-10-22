@@ -1,6 +1,8 @@
 import 'package:finalproject/Views/RegisterScreen.dart';
 import 'package:flutter/material.dart';
 
+import 'Views/HomePageScreen.dart';
+
 void main() {
   runApp(const MyApp());
 }
@@ -85,22 +87,56 @@ class _MyHomePageState extends State<MyHomePage> {
               style: ButtonStyle(
                 foregroundColor: MaterialStateProperty.all<Color>(Colors.blue),
               ),
-              onPressed: () {},
+              onPressed: () {
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(builder: (context) => const HomePageScreen(title: " HomePage")),
+                );
+              },
               child: Text('Log In'),
             ),
             TextButton(
               style: ButtonStyle(
                 foregroundColor: MaterialStateProperty.all<Color>(Colors.blue),
               ),
-              onPressed: () {                         //מעבר בין מסכים
+              onPressed: () {
+                //מעבר בין מסכים
                 Navigator.push(
                   context,
-                  MaterialPageRoute(builder: (context)=> const Registerscreen(title :"New Acount")),
+                  MaterialPageRoute(
+                      builder: (context) =>
+                          const Registerscreen(title: "New Acount")),
                 );
               },
-
               child: Text('New Acount'),
             ),
+
+
+        TextButton(                                //اخر اشي عشان الدفع
+          style: ButtonStyle(
+            foregroundColor: MaterialStateProperty.all<Color>(Colors.blue),
+          ),
+          onPressed: () => showDialog<String>(
+            context: context,
+            builder: (BuildContext context) => AlertDialog(
+              title: const Text('AlertDialog Title'),
+              content: const Text('AlertDialog description'),
+              actions: <Widget>[
+                TextButton(
+                  onPressed: () => Navigator.pop(context, 'Cancel'),
+                  child: const Text('Cancel'),
+                ),
+                TextButton(
+                  onPressed: () => Navigator.pop(context, 'OK'),
+                  child: const Text('OK'),
+                ),
+              ],
+            ),
+          ),
+
+          child: const Text('click'),
+
+        ),
 
           ],
         ),
