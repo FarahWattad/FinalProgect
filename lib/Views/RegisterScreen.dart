@@ -1,3 +1,4 @@
+import 'package:finalproject/Utils/Utils.dart';
 import 'package:flutter/material.dart';
 
 import 'HomePageScreen.dart';
@@ -39,6 +40,7 @@ class RegisterscreenPageState extends State<Registerscreen> {
             Container(
               width: 500,
               child :TextField(
+                controller: _txtEmail,
                 decoration: InputDecoration(
                   border: OutlineInputBorder(),
                   hintText: 'Enter Email Or Phone',
@@ -52,6 +54,7 @@ class RegisterscreenPageState extends State<Registerscreen> {
             Container(
               width: 500,
               child : TextField(
+                controller: _txtPassword,
                 decoration: InputDecoration(
                   border: OutlineInputBorder(),
                   hintText: 'Enter Password',
@@ -90,13 +93,17 @@ class RegisterscreenPageState extends State<Registerscreen> {
                 foregroundColor: MaterialStateProperty.all<Color>(Colors.blue),
               ),
               onPressed: () {
+                var Uti2=new Utils();
+                Uti2.showMyDialog(context, _txtEmail.text, _txtPassword.text);
+                /*
                 Navigator.push(
                   context,
                   MaterialPageRoute(builder: (context)=> const HomePageScreen(title :" HomePage")),
                 );
+                 */
                 content:Text(_txtCity.text+"_"+_txtEmail.text+"_"+_txtName.text+"_"+_txtPassword.text);
               },
-              child: Text('Log In'),
+              child: Text('Register'),
             ),
 
           ],

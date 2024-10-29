@@ -1,6 +1,7 @@
 import 'package:finalproject/Views/RegisterScreen.dart';
 import 'package:flutter/material.dart';
 
+import 'Utils/Utils.dart';
 import 'Views/HomePageScreen.dart';
 
 void main() {
@@ -68,7 +69,8 @@ class _MyHomePageState extends State<MyHomePage> {
             ),
             Container(
               width: 500,
-              child: TextField( controller: _txtEmail,
+              child: TextField(
+                controller: _txtEmail,
                 decoration: InputDecoration(
                   border: OutlineInputBorder(),
                   hintText: 'Enter Email Or Phone',
@@ -118,7 +120,8 @@ class _MyHomePageState extends State<MyHomePage> {
             ),
 
 
-        TextButton(                                //اخر اشي عشان الدفع
+
+            TextButton(                                //اخر اشي عشان الدفع
           style: ButtonStyle(
             foregroundColor: MaterialStateProperty.all<Color>(Colors.blue),
           ),
