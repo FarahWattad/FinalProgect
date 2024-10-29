@@ -7,6 +7,11 @@ void main() {
   runApp(const MyApp());
 }
 
+final _txtEmail= TextEditingController();
+final _txtPassword= TextEditingController();
+
+
+
 class MyApp extends StatelessWidget {
   const MyApp({super.key});
 
@@ -63,7 +68,7 @@ class _MyHomePageState extends State<MyHomePage> {
             ),
             Container(
               width: 500,
-              child: TextField(
+              child: TextField( controller: _txtEmail,
                 decoration: InputDecoration(
                   border: OutlineInputBorder(),
                   hintText: 'Enter Email Or Phone',
@@ -77,6 +82,7 @@ class _MyHomePageState extends State<MyHomePage> {
             Container(
               width: 500,
               child: TextField(
+                controller: _txtPassword,
                 decoration: InputDecoration(
                   border: OutlineInputBorder(),
                   hintText: 'Enter Password',
@@ -120,7 +126,7 @@ class _MyHomePageState extends State<MyHomePage> {
             context: context,
             builder: (BuildContext context) => AlertDialog(
               title: const Text('AlertDialog Title'),
-              content: const Text('AlertDialog description'),
+              content:  Text( _txtEmail.text+"_"+_txtPassword.text),
               actions: <Widget>[
                 TextButton(
                   onPressed: () => Navigator.pop(context, 'Cancel'),

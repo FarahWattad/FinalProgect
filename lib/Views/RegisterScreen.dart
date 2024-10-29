@@ -16,8 +16,8 @@ class RegisterscreenPageState extends State<Registerscreen> {
 
   final _txtEmail= TextEditingController();
   final _txtPassword= TextEditingController();
-  final _txtPhone= TextEditingController();
-
+  final _txtCity= TextEditingController();
+  final _txtName= TextEditingController();
 
 
 
@@ -78,6 +78,7 @@ class RegisterscreenPageState extends State<Registerscreen> {
             Container(
               width: 500,
               child :TextField(
+
                 decoration: InputDecoration(
                   border: OutlineInputBorder(),
                   hintText: 'Enter City',
@@ -93,6 +94,7 @@ class RegisterscreenPageState extends State<Registerscreen> {
                   context,
                   MaterialPageRoute(builder: (context)=> const HomePageScreen(title :" HomePage")),
                 );
+                content:Text(_txtCity.text+"_"+_txtEmail.text+"_"+_txtName.text+"_"+_txtPassword.text);
               },
               child: Text('Log In'),
             ),
