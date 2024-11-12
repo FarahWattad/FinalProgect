@@ -1,6 +1,7 @@
 import 'package:finalproject/Utils/Utils.dart';
 import 'package:flutter/material.dart';
 
+import '../Utils/db.dart';
 import 'HomePageScreen.dart';
 
 class Registerscreen extends StatefulWidget {
@@ -95,6 +96,7 @@ class RegisterscreenPageState extends State<Registerscreen> {
               onPressed: () {
                 var Uti2=new Utils();
                 Uti2.showMyDialog(context, _txtEmail.text, _txtPassword.text);
+                insertUser("aa", 'ss' , 'dd');
                 /*
                 Navigator.push(
                   context,

@@ -3,7 +3,7 @@ import 'package:mysql1/mysql1.dart';
 var _conn;
 void main(){
   showUsers();
- insertUser();
+ insertUser("farah", "wattad" , '123');
 }
 
 // for(int i=0; i<100; 1++)
@@ -23,7 +23,7 @@ Future<void> showUsers() async {
     print('userID: ${row[0]}, firstName: ${row[1]} lastName: ${row[2]}');
   }
 }
-Future<void> insertUser() async {
+Future<void> insertUser(firstName, LastName , Password) async {
   var settings = new ConnectionSettings(
       host: 'localhost',
       port: 3306,
