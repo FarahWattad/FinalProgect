@@ -10,7 +10,7 @@ void main(){
 
 Future<void> showUsers() async {
   var settings = new ConnectionSettings(
-      host: 'localhost',
+      host: '10.0.2.2',
       port: 3306,
       user: 'root',
       db: 'farah_12'
@@ -25,7 +25,7 @@ Future<void> showUsers() async {
 }
 Future<void> insertUser(firstName, LastName , Password) async {
   var settings = new ConnectionSettings(
-      host: 'localhost',
+      host: '10.0.2.2',
       port: 3306,
       user: 'root',
       db: 'farah_12'
@@ -34,7 +34,7 @@ Future<void> insertUser(firstName, LastName , Password) async {
 
   var result = await conn.query(
       'insert into users ( firstName, LastName , Password) values ( ?, ? ,?)',
-      ['YOSEF', 'WATTAD', '123']);
+      [firstName, LastName, Password]);
   print('Inserted row id=${result.insertId}');
   var result2 = await conn.query(
       'insert into users ( firstName, LastName , Password) values ( ?, ? ,?)',
