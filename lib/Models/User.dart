@@ -5,6 +5,7 @@ class User{
     this.phone="",
     this.note="",
     this.Address="",
+    this.UserID=0,
 
   });
 
@@ -13,6 +14,7 @@ class User{
   String note;
   String phone;
   String Address;
+  int UserID ;
 
   factory User.fromJson(Map<String,dynamic> json)=>User(
     id: json ["id"],
@@ -20,6 +22,7 @@ class User{
     phone: json["phone"],
     note: json["note"],
     Address: json["Address"],
+    UserID : json["UserID "],
 
   );
   Map<String,dynamic> toJson() => {
@@ -28,6 +31,7 @@ class User{
     "phone":phone,
     "note":note,
     "Address":Address,
+    "UserID ":UserID ,
 
   };
 }
