@@ -1,6 +1,7 @@
 import 'package:finalproject/Utils/Utils.dart';
 import 'package:flutter/material.dart';
 
+import '../Models/User.dart';
 import '../Utils/db.dart';
 import 'HomePageScreen.dart';
 
@@ -82,7 +83,7 @@ class RegisterscreenPageState extends State<Registerscreen> {
             Container(
               width: 500,
               child :TextField(
-
+//controller: _txtCity,
                 decoration: InputDecoration(
                   border: OutlineInputBorder(),
                   hintText: 'Enter City',
@@ -96,7 +97,11 @@ class RegisterscreenPageState extends State<Registerscreen> {
               onPressed: () {
                 var Uti2=new Utils();
                 Uti2.showMyDialog(context, _txtEmail.text, _txtPassword.text);
-                insertUser("aa", 'ss' , 'dd');
+                User us =new User();
+                us.FirstName=_txtName.text;
+                us.Password="050740290xx5";
+                us.UserID=3;
+                insertUser(us);
                 /*
                 Navigator.push(
                   context,
