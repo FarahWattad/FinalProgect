@@ -113,7 +113,7 @@ class _MyHomePageState extends State<MyHomePage> {
                   context,
                   MaterialPageRoute(
                       builder: (context) =>
-                          const Registerscreen(title: "New Acount")),
+                          const RegisterScreen(title: "New Acount")),
                 );
               },
               child: Text('New Acount'),

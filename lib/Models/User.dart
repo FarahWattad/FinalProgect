@@ -3,7 +3,7 @@ class User{
     this.FirstName="",
     this.CreatedDateTime="",
     this.LastName="",
-    this.Password="",
+    this.City="",
     this.UserID=0,
 
   });
@@ -12,14 +12,14 @@ class User{
   String FirstName;
   String LastName;
   String CreatedDateTime;
-  String Password;
+  String City;
   int UserID ;
 
   factory User.fromJson(Map<String,dynamic> json)=>User(
     FirstName: json["FirstName"],
     CreatedDateTime: json["CreatedDateTime"],
     LastName: json["LastName"],
-    Password: json["Password"],
+    City: json["City"],
     UserID : json["UserID "],
 
   );
@@ -27,7 +27,7 @@ class User{
     "FirstName": FirstName,
     "CreatedDateTime":CreatedDateTime,
     "LastName":LastName,
-    "Password":Password,
+    "City":City,
     "UserID ":UserID ,
 
   };

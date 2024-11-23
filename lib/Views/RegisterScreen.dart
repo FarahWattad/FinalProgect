@@ -5,24 +5,46 @@ import '../Models/User.dart';
 import '../Utils/db.dart';
 import 'HomePageScreen.dart';
 
-class Registerscreen extends StatefulWidget {
-  const Registerscreen({super.key, required this.title});
+class RegisterScreen extends StatefulWidget {
+  const RegisterScreen({super.key, required this.title});
 
   final String title;
 
   @override
-  State<Registerscreen> createState() => RegisterscreenPageState();
+  State<RegisterScreen> createState() => RegisterScreenPageState();
 }
 
-class RegisterscreenPageState extends State<Registerscreen> {
+class RegisterScreenPageState extends State<RegisterScreen> {
   int _counter = 0;
 
-  final _txtEmail= TextEditingController();
-  final _txtPassword= TextEditingController();
   final _txtCity= TextEditingController();
-  final _txtName= TextEditingController();
+  final _txtFirstName= TextEditingController();
+  final _txtLastName= TextEditingController();
 
+void _incrementCounter(){
+  setState(() {
+    _counter++;
+  });
+}
 
+void insertUserFunc() {
+  if (_txtFirstName.text != "") {
+    User us = new User();
+    us.FirstName = _txtFirstName.text;
+    us.LastName = _txtLastName.text;
+    us.City = _txtCity.text;
+    insertUser(us);
+    var uti = new Utils();
+    uti.showMyDialog(context, "success", "you registed successfully");
+    _txtFirstName.text = "";
+    _txtLastName.text = "";
+    _txtCity.text = "";
+  }
+  else {
+    var uti = new Utils();
+    uti.showMyDialog(context, "Required", "Please insert First name");
+  }
+}
 
   @override
   Widget build(BuildContext context) {
@@ -36,35 +58,7 @@ class RegisterscreenPageState extends State<Registerscreen> {
           mainAxisAlignment: MainAxisAlignment.center,
           children: <Widget>[
             Text(
-              "Email Or Number Phone:",
-              style: TextStyle(fontSize: 20),
-            ),
-            Container(
-              width: 500,
-              child :TextField(
-                controller: _txtEmail,
-                decoration: InputDecoration(
-                  border: OutlineInputBorder(),
-                  hintText: 'Enter Email Or Phone',
-                ),
-              ),
-            ),
-            Text(
-              "Password :",
-              style: TextStyle(fontSize: 20),
-            ),
-            Container(
-              width: 500,
-              child : TextField(
-                controller: _txtPassword,
-                decoration: InputDecoration(
-                  border: OutlineInputBorder(),
-                  hintText: 'Enter Password',
-                ),
-              ),
-            ),
-            Text(
-              "Full Name:",
+              "First Name:",
               style: TextStyle(fontSize: 20),
             ),
             Container(
@@ -72,7 +66,20 @@ class RegisterscreenPageState extends State<Registerscreen> {
               child: TextField(
                 decoration: InputDecoration(
                   border: OutlineInputBorder(),
-                  hintText: 'Enter Full Name',
+                  hintText: 'Enter First Name - requird',
+                ),
+              ),
+            ),
+            Text(
+              "Last Name:",
+              style: TextStyle(fontSize: 20),
+            ),
+            Container(
+              width: 500,
+              child: TextField(
+                decoration: InputDecoration(
+                  border: OutlineInputBorder(),
+                  hintText: 'Enter Last Name',
                 ),
               ),
             ),
@@ -95,20 +102,15 @@ class RegisterscreenPageState extends State<Registerscreen> {
                 foregroundColor: MaterialStateProperty.all<Color>(Colors.blue),
               ),
               onPressed: () {
-                var Uti2=new Utils();
-                Uti2.showMyDialog(context, _txtEmail.text, _txtPassword.text);
-                User us =new User();
-                us.FirstName=_txtName.text;
-                us.Password="050740290xx5";
-                us.UserID=3;
-                insertUser(us);
+
+                insertUserFunc();
                 /*
                 Navigator.push(
                   context,
                   MaterialPageRoute(builder: (context)=> const HomePageScreen(title :" HomePage")),
                 );
                  */
-                content:Text(_txtCity.text+"_"+_txtEmail.text+"_"+_txtName.text+"_"+_txtPassword.text);
+             //   content:Text(_txtCity.text+"_"+_txtEmail.text+"_"+_txtFullName.text+"_"+_txtPassword.text);
               },
               child: Text('Register'),
             ),
