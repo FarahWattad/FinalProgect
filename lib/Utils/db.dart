@@ -28,8 +28,8 @@ Future<void> insertUser(User user) async {
   connectToDB();
 
   var result = await _conn.query(
-      'insert into users (FirstName, LastName, City) values ( ?, ? ,?)',
-      [user.FirstName, user.LastName, user.City]);
+      'insert into users (FirstName, LastName, Password , City,ConfirmPassword) values ( ?, ? ,? ,? ,?)',
+      [user.FirstName, user.LastName, user.Password ,user.City, user.ConfirmPassword]);
   print('Inserted row id=${result.insertId}');
 
   //////////

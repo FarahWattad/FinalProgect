@@ -17,34 +17,35 @@ class RegisterScreen extends StatefulWidget {
 class RegisterScreenPageState extends State<RegisterScreen> {
   int _counter = 0;
 
-  final _txtCity= TextEditingController();
-  final _txtFirstName= TextEditingController();
-  final _txtLastName= TextEditingController();
+  final _txtCity = TextEditingController();
+  final _txtFirstName = TextEditingController();
+  final _txtLastName = TextEditingController();
+  final _txtPassword = TextEditingController();
+  final _txtConfirmPassword = TextEditingController();
 
-void _incrementCounter(){
-  setState(() {
-    _counter++;
-  });
-}
-
-void insertUserFunc() {
-  if (_txtFirstName.text != "") {
-    User us = new User();
-    us.FirstName = _txtFirstName.text;
-    us.LastName = _txtLastName.text;
-    us.City = _txtCity.text;
-    insertUser(us);
-    var uti = new Utils();
-    uti.showMyDialog(context, "success", "you registed successfully");
-    _txtFirstName.text = "";
-    _txtLastName.text = "";
-    _txtCity.text = "";
+  void insertUserFunc() {
+    if (_txtFirstName.text != "") {
+      User us = new User();
+      us.FirstName = _txtFirstName.text;
+      us.LastName = _txtLastName.text;
+      us.City = _txtCity.text;
+      us.Password = _txtPassword.text;
+      us.ConfirmPassword = _txtConfirmPassword.text;
+      insertUser(us);
+      /*
+      var uti = new Utils();
+      uti.showMyDialog(context, "success", "you registed successfully");
+      _txtFirstName.text = "";
+      _txtLastName.text = "";
+      _txtCity.text = "";
+      _txtPassword.text = "";
+      _txtConfirmPassword.text = "";
+       */
+    } else {
+      var uti = new Utils();
+      uti.showMyDialog(context, "Required", "Please insert First name");
+    }
   }
-  else {
-    var uti = new Utils();
-    uti.showMyDialog(context, "Required", "Please insert First name");
-  }
-}
 
   @override
   Widget build(BuildContext context) {
@@ -64,6 +65,7 @@ void insertUserFunc() {
             Container(
               width: 500,
               child: TextField(
+                controller: _txtFirstName,
                 decoration: InputDecoration(
                   border: OutlineInputBorder(),
                   hintText: 'Enter First Name - requird',
@@ -77,6 +79,7 @@ void insertUserFunc() {
             Container(
               width: 500,
               child: TextField(
+                controller: _txtLastName,
                 decoration: InputDecoration(
                   border: OutlineInputBorder(),
                   hintText: 'Enter Last Name',
@@ -89,11 +92,40 @@ void insertUserFunc() {
             ),
             Container(
               width: 500,
-              child :TextField(
+              child: TextField(
+                controller: _txtCity,
 //controller: _txtCity,
                 decoration: InputDecoration(
                   border: OutlineInputBorder(),
                   hintText: 'Enter City',
+                ),
+              ),
+            ),
+            Text(
+              "Password:",
+              style: TextStyle(fontSize: 20),
+            ),
+            Container(
+              width: 500,
+              child: TextField(
+                controller: _txtPassword,
+                decoration: InputDecoration(
+                  border: OutlineInputBorder(),
+                  hintText: 'Enter  Password',
+                ),
+              ),
+            ),
+            Text(
+              "Confirm Password:",
+              style: TextStyle(fontSize: 20),
+            ),
+            Container(
+              width: 500,
+              child: TextField(
+                controller: _txtConfirmPassword,
+                decoration: InputDecoration(
+                  border: OutlineInputBorder(),
+                  hintText: 'Enter Confirm Password',
                 ),
               ),
             ),
@@ -102,7 +134,6 @@ void insertUserFunc() {
                 foregroundColor: MaterialStateProperty.all<Color>(Colors.blue),
               ),
               onPressed: () {
-
                 insertUserFunc();
                 /*
                 Navigator.push(
@@ -110,11 +141,10 @@ void insertUserFunc() {
                   MaterialPageRoute(builder: (context)=> const HomePageScreen(title :" HomePage")),
                 );
                  */
-             //   content:Text(_txtCity.text+"_"+_txtEmail.text+"_"+_txtFullName.text+"_"+_txtPassword.text);
+                //   content:Text(_txtCity.text+"_"+_txtEmail.text+"_"+_txtFullName.text+"_"+_txtPassword.text);
               },
               child: Text('Register'),
             ),
-
           ],
         ),
       ),
