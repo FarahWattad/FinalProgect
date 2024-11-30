@@ -67,7 +67,7 @@ class _MyHomePageState extends State<MyHomePage> {
             //   child: Image.asset('Images/3shahtat.png'),
             // ),
             Text(
-              "מייל או מספר טלפון:",
+              " : מייל או מספר טלפון ",
               style: TextStyle(fontSize: 20),
             ),
             Container(
@@ -81,7 +81,7 @@ class _MyHomePageState extends State<MyHomePage> {
               ),
             ),
             Text(
-              "סיסמה :",
+              ": סיסמה ",
               style: TextStyle(fontSize: 20),
             ),
             Container(

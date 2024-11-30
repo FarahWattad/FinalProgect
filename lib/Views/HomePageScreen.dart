@@ -55,6 +55,32 @@ class HomePageScreenPageState extends State<HomePageScreen> {
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: <Widget>[
+            ListView(
+              // This next line does the trick.
+              scrollDirection: Axis.horizontal,
+              children: <Widget>[
+                Container(
+                  width: 160,
+                  color: Colors.red,
+                ),
+                Container(
+                  width: 160,
+                  color: Colors.blue,
+                ),
+                Container(
+                  width: 160,
+                  color: Colors.green,
+                ),
+                Container(
+                  width: 160,
+                  color: Colors.yellow,
+                ),
+                Container(
+                  width: 160,
+                  color: Colors.orange,
+                ),
+              ],
+            ),
             Text("home"),
             TextButton(
                 style: ButtonStyle(
@@ -68,7 +94,6 @@ class HomePageScreenPageState extends State<HomePageScreen> {
                 },
                 child: Icon(Icons.account_circle)
             ),
-
 
 
           ],
