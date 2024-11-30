@@ -32,6 +32,11 @@ class RegisterScreenPageState extends State<RegisterScreen> {
       us.Password = _txtPassword.text;
       us.ConfirmPassword = _txtConfirmPassword.text;
       insertUser(us);
+
+      Navigator.push(
+        context,
+        MaterialPageRoute(builder: (context)=> const HomePageScreen(title :" דף הבית ")),
+      );
       /*
       var uti = new Utils();
       uti.showMyDialog(context, "success", "you registed successfully");
@@ -59,7 +64,7 @@ class RegisterScreenPageState extends State<RegisterScreen> {
           mainAxisAlignment: MainAxisAlignment.center,
           children: <Widget>[
             Text(
-              "First Name:",
+              ": שם פרטי",
               style: TextStyle(fontSize: 20),
             ),
             Container(
@@ -68,12 +73,12 @@ class RegisterScreenPageState extends State<RegisterScreen> {
                 controller: _txtFirstName,
                 decoration: InputDecoration(
                   border: OutlineInputBorder(),
-                  hintText: 'Enter First Name - requird',
+                  hintText: 'הזן שם פרטי - חובה',
                 ),
               ),
             ),
             Text(
-              "Last Name:",
+              ":שם משפחה",
               style: TextStyle(fontSize: 20),
             ),
             Container(
@@ -82,12 +87,12 @@ class RegisterScreenPageState extends State<RegisterScreen> {
                 controller: _txtLastName,
                 decoration: InputDecoration(
                   border: OutlineInputBorder(),
-                  hintText: 'Enter Last Name',
+                  hintText: 'הזן שם משפחה ',
                 ),
               ),
             ),
             Text(
-              "City :",
+              ":עיר  ",
               style: TextStyle(fontSize: 20),
             ),
             Container(
@@ -97,12 +102,12 @@ class RegisterScreenPageState extends State<RegisterScreen> {
 //controller: _txtCity,
                 decoration: InputDecoration(
                   border: OutlineInputBorder(),
-                  hintText: 'Enter City',
+                  hintText: 'הזן עיר',
                 ),
               ),
             ),
             Text(
-              "Password:",
+              ": סיסמה",
               style: TextStyle(fontSize: 20),
             ),
             Container(
@@ -111,12 +116,12 @@ class RegisterScreenPageState extends State<RegisterScreen> {
                 controller: _txtPassword,
                 decoration: InputDecoration(
                   border: OutlineInputBorder(),
-                  hintText: 'Enter  Password',
+                  hintText: 'הזן סיסמה',
                 ),
               ),
             ),
             Text(
-              "Confirm Password:",
+              ": אימות סיסמה",
               style: TextStyle(fontSize: 20),
             ),
             Container(
@@ -125,7 +130,7 @@ class RegisterScreenPageState extends State<RegisterScreen> {
                 controller: _txtConfirmPassword,
                 decoration: InputDecoration(
                   border: OutlineInputBorder(),
-                  hintText: 'Enter Confirm Password',
+                  hintText: 'אימית סיסמה ',
                 ),
               ),
             ),
@@ -143,7 +148,7 @@ class RegisterScreenPageState extends State<RegisterScreen> {
                  */
                 //   content:Text(_txtCity.text+"_"+_txtEmail.text+"_"+_txtFullName.text+"_"+_txtPassword.text);
               },
-              child: Text('Register'),
+              child: Text('הרשמה'),
             ),
           ],
         ),

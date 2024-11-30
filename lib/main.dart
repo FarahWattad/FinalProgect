@@ -47,6 +47,9 @@ class _MyHomePageState extends State<MyHomePage> {
     });
   }
 
+
+
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -64,7 +67,7 @@ class _MyHomePageState extends State<MyHomePage> {
             //   child: Image.asset('Images/3shahtat.png'),
             // ),
             Text(
-              "Email Or Number Phone:",
+              "מייל או מספר טלפון:",
               style: TextStyle(fontSize: 20),
             ),
             Container(
@@ -73,12 +76,12 @@ class _MyHomePageState extends State<MyHomePage> {
                 controller: _txtEmail,
                 decoration: InputDecoration(
                   border: OutlineInputBorder(),
-                  hintText: 'Enter Email Or Phone',
+                  hintText: 'מייל או מספר טלפון',
                 ),
               ),
             ),
             Text(
-              "Password :",
+              "סיסמה :",
               style: TextStyle(fontSize: 20),
             ),
             Container(
@@ -87,7 +90,7 @@ class _MyHomePageState extends State<MyHomePage> {
                 controller: _txtPassword,
                 decoration: InputDecoration(
                   border: OutlineInputBorder(),
-                  hintText: 'Enter Password',
+                  hintText: 'הזן סיסמה',
                 ),
               ),
             ),
@@ -98,10 +101,10 @@ class _MyHomePageState extends State<MyHomePage> {
               onPressed: () {
                 Navigator.push(
                   context,
-                  MaterialPageRoute(builder: (context) => const HomePageScreen(title: " HomePage")),
+                  MaterialPageRoute(builder: (context) => const HomePageScreen(title: " דף הבית")),
                 );
               },
-              child: Text('Log In'),
+              child: Text('כניסה'),
             ),
             TextButton(
               style: ButtonStyle(
@@ -113,10 +116,10 @@ class _MyHomePageState extends State<MyHomePage> {
                   context,
                   MaterialPageRoute(
                       builder: (context) =>
-                          const RegisterScreen(title: "New Acount")),
+                          const RegisterScreen(title: "חשבון חדש")),
                 );
               },
-              child: Text('New Acount'),
+              child: Text('חשבון חדש'),
             ),
 
 
@@ -128,28 +131,30 @@ class _MyHomePageState extends State<MyHomePage> {
           onPressed: () => showDialog<String>(
             context: context,
             builder: (BuildContext context) => AlertDialog(
-              title: const Text('AlertDialog Title'),
+              title: const Text('מידע'),
               content:  Text( _txtEmail.text+"_"+_txtPassword.text),
               actions: <Widget>[
                 TextButton(
-                  onPressed: () => Navigator.pop(context, 'Cancel'),
-                  child: const Text('Cancel'),
+                  onPressed: () => Navigator.pop(context, 'ביטול'),
+                  child: const Text('ביטול'),
                 ),
                 TextButton(
-                  onPressed: () => Navigator.pop(context, 'OK'),
-                  child: const Text('OK'),
+                  onPressed: () => Navigator.pop(context, 'בסדר'),
+                  child: const Text('בסדר'),
                 ),
               ],
             ),
           ),
 
-          child: const Text('click'),
+          child: const Text('נתונים'),
 
         ),
 
           ],
         ),
       ),
-    );
+
+
+        );
   }
 }
