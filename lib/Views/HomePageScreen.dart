@@ -13,7 +13,7 @@ class HomePageScreen extends StatefulWidget {
 
 class HomePageScreenPageState extends State<HomePageScreen> {
 
-
+  bool isDark = false;
   int _selectedIndex = 0;
   static const TextStyle optionStyle =
   TextStyle(fontSize: 30, fontWeight: FontWeight.bold);
@@ -46,6 +46,7 @@ class HomePageScreenPageState extends State<HomePageScreen> {
 
   @override
   Widget build(BuildContext context) {
+
     return Scaffold(
       appBar: AppBar(
         backgroundColor: Theme.of(context).colorScheme.inversePrimary,
