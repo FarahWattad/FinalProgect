@@ -2,7 +2,7 @@ import 'package:finalproject/Views/RegisterScreen.dart';
 import 'package:flutter/material.dart';
 
 import 'Utils/Utils.dart';
-import 'Views/HomePageScreen.dart';
+import 'Views/Homepagescreen.dart';
 
 void main() {
   runApp(const MyApp());
@@ -101,7 +101,7 @@ class _MyHomePageState extends State<MyHomePage> {
               onPressed: () {
                 Navigator.push(
                   context,
-                  MaterialPageRoute(builder: (context) => const HomePageScreen(title: " דף הבית")),
+                  MaterialPageRoute(builder: (context) => const Homepagescreen(title: " דף הבית")),
                 );
               },
               child: Text('כניסה'),

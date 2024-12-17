@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 
 import '../Models/User.dart';
 import '../Utils/db.dart';
-import 'HomePageScreen.dart';
+import 'Homepagescreen.dart';
 
 class RegisterScreen extends StatefulWidget {
   const RegisterScreen({super.key, required this.title});
@@ -35,7 +35,7 @@ class RegisterScreenPageState extends State<RegisterScreen> {
 
       Navigator.push(
         context,
-        MaterialPageRoute(builder: (context)=> const HomePageScreen(title :" דף הבית ")),
+        MaterialPageRoute(builder: (context)=> const Homepagescreen(title :" דף הבית ")),
       );
       /*
       var uti = new Utils();

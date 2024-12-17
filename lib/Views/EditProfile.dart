@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-import 'HomePageScreen.dart';
+import 'Homepagescreen.dart';
 
 class EditProfile extends StatefulWidget {
   const EditProfile({super.key, required this.title});
@@ -90,7 +90,7 @@ class EditProfilePageState extends State<EditProfile> {
               onPressed: () {
                 Navigator.push(
                   context,
-                  MaterialPageRoute(builder: (context)=> const HomePageScreen(title :" HomePage")),
+                  MaterialPageRoute(builder: (context)=> const Homepagescreen(title :" HomePage")),
                 );
               },
               child: Text('Save'),
