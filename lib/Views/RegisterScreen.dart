@@ -68,7 +68,7 @@ class RegisterScreenPageState extends State<RegisterScreen> {
               style: TextStyle(fontSize: 20),
             ),
             Container(
-              width: 500,
+              width: 300,
               child: TextField(
                 controller: _txtFirstName,
                 decoration: InputDecoration(
@@ -82,7 +82,7 @@ class RegisterScreenPageState extends State<RegisterScreen> {
               style: TextStyle(fontSize: 20),
             ),
             Container(
-              width: 500,
+              width: 300,
               child: TextField(
                 controller: _txtLastName,
                 decoration: InputDecoration(
@@ -96,7 +96,7 @@ class RegisterScreenPageState extends State<RegisterScreen> {
               style: TextStyle(fontSize: 20),
             ),
             Container(
-              width: 500,
+              width: 300,
               child: TextField(
                 controller: _txtCity,
 //controller: _txtCity,
@@ -111,7 +111,7 @@ class RegisterScreenPageState extends State<RegisterScreen> {
               style: TextStyle(fontSize: 20),
             ),
             Container(
-              width: 500,
+              width: 300,
               child: TextField(
                 controller: _txtPassword,
                 decoration: InputDecoration(
@@ -125,7 +125,7 @@ class RegisterScreenPageState extends State<RegisterScreen> {
               style: TextStyle(fontSize: 20),
             ),
             Container(
-              width: 500,
+              width: 300,
               child: TextField(
                 controller: _txtConfirmPassword,
                 decoration: InputDecoration(

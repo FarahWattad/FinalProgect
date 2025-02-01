@@ -32,54 +32,54 @@ class EditProfilePageState extends State<EditProfile> {
           mainAxisAlignment: MainAxisAlignment.center,
           children: <Widget>[
             Text(
-              "Email Or Number Phone:",
+              ": מייל או מספר טלפון",
               style: TextStyle(fontSize: 20),
             ),
             Container(
-              width: 500,
+              width: 300,
               child :TextField(
                 decoration: InputDecoration(
                   border: OutlineInputBorder(),
-                  hintText: 'Enter Email Or Phone',
+                  hintText: ' מייל או מספר טלפון',
                 ),
               ),
             ),
             Text(
-              "Password :",
+              ": סיסמה ",
               style: TextStyle(fontSize: 20),
             ),
             Container(
-              width: 500,
+              width: 300,
               child : TextField(
                 decoration: InputDecoration(
                   border: OutlineInputBorder(),
-                  hintText: 'Enter Password',
+                  hintText: 'הזן סיסמה',
                 ),
               ),
             ),
             Text(
-              "Full Name:",
+              ": שם מלא ",
               style: TextStyle(fontSize: 20),
             ),
             Container(
-              width: 500,
+              width: 300,
               child: TextField(
                 decoration: InputDecoration(
                   border: OutlineInputBorder(),
-                  hintText: 'Enter Full Name',
+                  hintText: 'הזן שם מלא',
                 ),
               ),
             ),
             Text(
-              "City :",
+              ": עיר ",
               style: TextStyle(fontSize: 20),
             ),
             Container(
-              width: 500,
+              width: 300,
               child :TextField(
                 decoration: InputDecoration(
                   border: OutlineInputBorder(),
-                  hintText: 'Enter City',
+                  hintText: 'הזן את שם העיר',
                 ),
               ),
             ),

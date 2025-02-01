@@ -71,7 +71,7 @@ class _MyHomePageState extends State<MyHomePage> {
               style: TextStyle(fontSize: 20),
             ),
             Container(
-              width: 500,
+              width: 300,
               child: TextField(
                 controller: _txtEmail,
                 decoration: InputDecoration(
@@ -85,7 +85,7 @@ class _MyHomePageState extends State<MyHomePage> {
               style: TextStyle(fontSize: 20),
             ),
             Container(
-              width: 500,
+              width: 300,
               child: TextField(
                 controller: _txtPassword,
                 decoration: InputDecoration(
