@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 
 import 'EditProfile.dart';
+import 'ShoppingCart.dart';
 
 class Homepagescreen extends StatefulWidget {
   const Homepagescreen({super.key, required this.title});
@@ -39,6 +40,22 @@ class _Homepagescreen extends State<Homepagescreen> {
   void _onItemTapped(int index) {
     setState(() {
       _selectedIndex = index;
+
+      if(index == 1)
+        {
+            Navigator.push(
+                context,
+                MaterialPageRoute(
+                  builder: (context) => ShoppingCart(
+                    title: "ShoppingCart",
+                  ),
+                )
+            );
+        }
+      else if(index == 1)
+        {
+
+        }
     });
   }
   void _incrementCounter() {
@@ -111,6 +128,7 @@ class _Homepagescreen extends State<Homepagescreen> {
           ),
           BottomNavigationBarItem(
             icon: Icon(Icons.shopping_basket),
+
             label: 'הסל שלי',
           ),
           BottomNavigationBarItem(
