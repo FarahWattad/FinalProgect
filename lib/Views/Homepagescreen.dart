@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 
 import 'EditProfile.dart';
+import 'Orders.dart';
+import 'Searchs.dart';
 import 'ShoppingCart.dart';
 
 class Homepagescreen extends StatefulWidget {
@@ -24,7 +26,7 @@ class _Homepagescreen extends State<Homepagescreen> {
       style: optionStyle,
     ),
     Text(
-      'Index 1: חיפוש',
+      'Index 1: הסל שלי',
       style: optionStyle,
     ),
     Text(
@@ -32,7 +34,7 @@ class _Homepagescreen extends State<Homepagescreen> {
       style: optionStyle,
     ),
     Text(
-      'Index 2: הזמנות',
+      'Index 3: הזמנות',
       style: optionStyle,
     ),
   ];
@@ -52,10 +54,28 @@ class _Homepagescreen extends State<Homepagescreen> {
                 )
             );
         }
-      else if(index == 1)
+      else if(index == 2)
         {
-
+          Navigator.push(
+              context,
+              MaterialPageRoute(
+                builder: (context) => Searchs(
+                  title: "Searchs",
+                ),
+              )
+          );
         }
+      else if(index == 3)
+      {
+        Navigator.push(
+            context,
+            MaterialPageRoute(
+              builder: (context) => Orders(
+                title: "Orders",
+              ),
+            )
+        );
+      }
     });
   }
   void _incrementCounter() {

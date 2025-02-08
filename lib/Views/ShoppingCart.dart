@@ -19,7 +19,6 @@ class ShoppingCartPageState extends State<ShoppingCart> {
       _counter++;
     });
   }
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -31,70 +30,6 @@ class ShoppingCartPageState extends State<ShoppingCart> {
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: <Widget>[
-            Text(
-              ": מייל או מספר טלפון",
-              style: TextStyle(fontSize: 20),
-            ),
-            Container(
-              width: 300,
-              child :TextField(
-                decoration: InputDecoration(
-                  border: OutlineInputBorder(),
-                  hintText: ' מייל או מספר טלפון',
-                ),
-              ),
-            ),
-            Text(
-              ": סיסמה ",
-              style: TextStyle(fontSize: 20),
-            ),
-            Container(
-              width: 300,
-              child : TextField(
-                decoration: InputDecoration(
-                  border: OutlineInputBorder(),
-                  hintText: 'הזן סיסמה',
-                ),
-              ),
-            ),
-            Text(
-              ": שם מלא ",
-              style: TextStyle(fontSize: 20),
-            ),
-            Container(
-              width: 300,
-              child: TextField(
-                decoration: InputDecoration(
-                  border: OutlineInputBorder(),
-                  hintText: 'הזן שם מלא',
-                ),
-              ),
-            ),
-            Text(
-              ": עיר ",
-              style: TextStyle(fontSize: 20),
-            ),
-            Container(
-              width: 300,
-              child :TextField(
-                decoration: InputDecoration(
-                  border: OutlineInputBorder(),
-                  hintText: 'הזן את שם העיר',
-                ),
-              ),
-            ),
-            TextButton(
-              style: ButtonStyle(
-                foregroundColor: MaterialStateProperty.all<Color>(Colors.blue),
-              ),
-              onPressed: () {
-                Navigator.push(
-                  context,
-                  MaterialPageRoute(builder: (context)=> const Homepagescreen(title :" HomePage")),
-                );
-              },
-              child: Text('Save'),
-            ),
 
           ],
         ),
