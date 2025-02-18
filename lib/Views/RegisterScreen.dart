@@ -1,7 +1,9 @@
 import 'package:finalproject/Utils/Utils.dart';
 import 'package:flutter/material.dart';
+import 'package:http/http.dart' as http;
 
 import '../Models/User.dart';
+import '../Utils/ClientConfing.dart';
 import '../Utils/db.dart';
 import 'Homepagescreen.dart';
 
@@ -14,6 +16,8 @@ class RegisterScreen extends StatefulWidget {
   State<RegisterScreen> createState() => RegisterScreenPageState();
 }
 
+
+
 class RegisterScreenPageState extends State<RegisterScreen> {
   int _counter = 0;
 
@@ -23,6 +27,20 @@ class RegisterScreenPageState extends State<RegisterScreen> {
   final _txtPassword = TextEditingController();
   final _txtConfirmPassword = TextEditingController();
 
+
+  Future insertUser(BuildContext context, User us) async {
+
+    //   SharedPreferences prefs = await SharedPreferences.getInstance();
+    //  String? getInfoDeviceSTR = prefs.getString("getInfoDeviceSTR");
+    var url = "users/insertUser.php?firstName=" + us.FirstName + "&lastName=" + us.LastName;
+    final response = await http.get(Uri.parse(serverPath + url));
+    print(serverPath + url);
+    setState(() { });
+    Navigator.pop(context);
+  }
+
+
+
   void insertUserFunc() {
     if (_txtFirstName.text != "") {
       User us = new User();
@@ -31,7 +49,7 @@ class RegisterScreenPageState extends State<RegisterScreen> {
       us.City = _txtCity.text;
       us.Password = _txtPassword.text;
       us.ConfirmPassword = _txtConfirmPassword.text;
-      insertUser(us);
+      insertUser(context ,us );
 
       Navigator.push(
         context,
