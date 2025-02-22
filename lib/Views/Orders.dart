@@ -54,7 +54,8 @@ class OrdersPageState extends State<Orders> {
               child: Padding(
                 padding: EdgeInsets.all(20), // تكبير الحجم الداخلي للمستطيل
                 child: ListTile(
-                  contentPadding: EdgeInsets.symmetric(vertical: 15), // توسيع حجم الـ ListTile
+                  contentPadding:
+                  EdgeInsets.symmetric(vertical: 15), // توسيع حجم الـ ListTile
                   title: Text(
                     "המזנה : ${order['id']}",
                     style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
@@ -73,9 +74,12 @@ class OrdersPageState extends State<Orders> {
                       SizedBox(height: 8),
                       ElevatedButton(
                         onPressed: () {
-                          setState(() {
-                            selectedOrderId = order['id'];
-                          });
+                          Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                              builder: (context) => OrderDetails(orderId: order['id']),
+                            ),
+                          );
                         },
                         style: ElevatedButton.styleFrom(
                           padding: EdgeInsets.symmetric(horizontal: 15, vertical: 10),
@@ -95,6 +99,27 @@ class OrdersPageState extends State<Orders> {
             "תוכן ההזמנה: $selectedOrderId",
             style: TextStyle(fontSize: 22, fontWeight: FontWeight.bold),
           ),
+        ),
+      ),
+    );
+  }
+}
+
+class OrderDetails extends StatelessWidget {
+  final int orderId;
+
+  const OrderDetails({super.key, required this.orderId});
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      appBar: AppBar(
+        title: Text("تفاصيل الطلبية رقم $orderId"),
+      ),
+      body: Center(
+        child: Text(
+          "هنا تفاصيل الطلبية رقم $orderId",
+          style: TextStyle(fontSize: 22, fontWeight: FontWeight.bold),
         ),
       ),
     );
