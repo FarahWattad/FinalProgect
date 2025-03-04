@@ -21,6 +21,7 @@ class OrderDetails extends StatelessWidget {
           ),
         ),
         body: Padding(
+
           padding: const EdgeInsets.all(16.0),
           child: ListView.builder(
             itemCount: items.length,

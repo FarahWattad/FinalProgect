@@ -10,11 +10,8 @@ void main() {
   runApp(const MyApp());
 }
 
-final _txtEmail= TextEditingController();
-final _txtPassword= TextEditingController();
-
-
-
+final _txtEmail = TextEditingController();
+final _txtPassword = TextEditingController();
 
 class MyApp extends StatelessWidget {
   const MyApp({super.key});
@@ -51,23 +48,22 @@ class _MyHomePageState extends State<MyHomePage> {
   }
 
   checkConction() async {
-  try {
-    final result = await InternetAddress.lookup('google.com');
-    if (result.isNotEmpty && result[0].rawAddress.isNotEmpty) {
-      // print('connected to internet');// print(result);// return 1;
+    try {
+      final result = await InternetAddress.lookup('google.com');
+      if (result.isNotEmpty && result[0].rawAddress.isNotEmpty) {
+        // print('connected to internet');// print(result);// return 1;
+      }
+    } on SocketException catch (_) {
+      // print('not connected to internet');// print(result);
+      var uti = new Utils();
+      uti.showMyDialog(context, "אין אינטרנט",
+          "האפליקציה דורשת חיבור לאינטרנט, נא להתחבר בבקשה");
+      return;
     }
-  } on SocketException catch (_) {
-    // print('not connected to internet');// print(result);
-    var uti = new Utils();
-    uti.showMyDialog(context, "אין אינטרנט", "האפליקציה דורשת חיבור לאינטרנט, נא להתחבר בבקשה");
-    return;
   }
-}
-
 
   @override
   Widget build(BuildContext context) {
-
     checkConction();
 
     return Scaffold(
@@ -119,7 +115,9 @@ class _MyHomePageState extends State<MyHomePage> {
               onPressed: () {
                 Navigator.push(
                   context,
-                  MaterialPageRoute(builder: (context) => const Homepagescreen(title: " דף הבית")),
+                  MaterialPageRoute(
+                      builder: (context) =>
+                          const Homepagescreen(title: " דף הבית")),
                 );
               },
               child: Text('כניסה'),
@@ -140,39 +138,34 @@ class _MyHomePageState extends State<MyHomePage> {
               child: Text('חשבון חדש'),
             ),
 
-
-
-            TextButton(                                //اخر اشي عشان الدفع
-          style: ButtonStyle(
-            foregroundColor: MaterialStateProperty.all<Color>(Colors.blue),
-          ),
-          onPressed: () => showDialog<String>(
-            context: context,
-            builder: (BuildContext context) => AlertDialog(
-              title: const Text('מידע'),
-              content:  Text( _txtEmail.text+"_"+_txtPassword.text),
-              actions: <Widget>[
-                TextButton(
-                  onPressed: () => Navigator.pop(context, 'ביטול'),
-                  child: const Text('ביטול'),
+            TextButton(
+              //اخر اشي عشان الدفع
+              style: ButtonStyle(
+                foregroundColor: MaterialStateProperty.all<Color>(Colors.blue),
+              ),
+              onPressed: () => showDialog<String>(
+                context: context,
+                builder: (BuildContext context) => AlertDialog(
+                  title: const Text('מידע'),
+                  content: Text(_txtEmail.text + "_" + _txtPassword.text),
+                  actions: <Widget>[
+                    TextButton(
+                      onPressed: () => Navigator.pop(context, 'ביטול'),
+                      child: const Text('ביטול'),
+                    ),
+                    TextButton(
+                      onPressed: () => Navigator.pop(context, 'בסדר'),
+                      child: const Text('בסדר'),
+                    ),
+                  ],
                 ),
-                TextButton(
-                  onPressed: () => Navigator.pop(context, 'בסדר'),
-                  child: const Text('בסדר'),
-                ),
-              ],
+              ),
+
+              child: const Text('נתונים'),
             ),
-          ),
-
-          child: const Text('נתונים'),
-
-        ),
-
           ],
         ),
       ),
-
-
-        );
+    );
   }
 }
