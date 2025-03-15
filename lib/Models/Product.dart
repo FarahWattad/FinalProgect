@@ -1,6 +1,6 @@
 class Product{
   Product({
-    this.productID="",
+    this.productID=0,
     this.	productName="",
     this.productPrice=0,
     this.CreatedDateTime="",
@@ -8,7 +8,7 @@ class Product{
     this.categoryID=0,
   });
 
-  String productID;
+  int productID;
   String 	productName;
   int productPrice;
   String CreatedDateTime;
@@ -16,14 +16,15 @@ class Product{
   int categoryID;
 
   factory Product.fromJson(Map<String,dynamic> json)=>Product(
-    productID: json ["productID"],
+    productID: json["productID"],
     productName: json["productName"],
     productPrice: json["productPrice"],
     CreatedDateTime: json["CreatedDateTime"],
     Warranty: json["Warranty"],
     categoryID: json["categoryID"],
-
   );
+
+
   Map<String,dynamic> toJson() => {
     "productID": productID,
     "productName": productName,

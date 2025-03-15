@@ -9,13 +9,13 @@ class Category{
   String categoryName;
 
   factory Category.fromJson(Map<String,dynamic> json)=>Category(
-    categoryID: json ["	categoryID"],
+    categoryID: json ["categoryID"],
     categoryName: json["categoryName"],
 
 
   );
   Map<String,dynamic> toJson() => {
-    "	categoryID": 	categoryID,
+    "categoryID": 	categoryID,
     "categoryName": categoryName,
 
   };

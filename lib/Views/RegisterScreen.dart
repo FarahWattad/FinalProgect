@@ -36,7 +36,11 @@ class RegisterScreenPageState extends State<RegisterScreen> {
     final response = await http.get(Uri.parse(serverPath + url));
     print(serverPath + url);
     setState(() { });
-    Navigator.pop(context);
+    // Navigator.pop(context);
+    Navigator.push(
+      context,
+      MaterialPageRoute(builder: (context)=> const Homepagescreen(title :" דף הבית ")),
+    );
   }
 
 
@@ -51,10 +55,7 @@ class RegisterScreenPageState extends State<RegisterScreen> {
       us.ConfirmPassword = _txtConfirmPassword.text;
       insertUser(context ,us );
 
-      Navigator.push(
-        context,
-        MaterialPageRoute(builder: (context)=> const Homepagescreen(title :" דף הבית ")),
-      );
+
       /*
       var uti = new Utils();
       uti.showMyDialog(context, "success", "you registed successfully");

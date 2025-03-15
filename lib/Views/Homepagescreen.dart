@@ -1,9 +1,17 @@
+import 'dart:convert';
+import 'package:finalproject/Models/Category.dart';
+import 'package:finalproject/Views/ProductsListScreen.dart';
 import 'package:flutter/material.dart';
-
+import '../Utils/ClientConfing.dart';
 import 'EditProfile.dart';
 import 'Orders.dart';
 import 'Searchs.dart';
 import 'ShoppingCart.dart';
+import 'package:http/http.dart' as http;
+
+
+
+
 
 class Homepagescreen extends StatefulWidget {
   const Homepagescreen({super.key, required this.title});
@@ -78,12 +86,31 @@ class _Homepagescreen extends State<Homepagescreen> {
       }
     });
   }
+  /*
   void _incrementCounter() {
     setState(() {
-
       _counter++;
     });
   }
+*/
+
+
+  Future getCategories() async {
+
+    var url = "products/getCategories.php";
+    final response = await http.get(Uri.parse(serverPath + url));
+    print(serverPath + url);
+    List<Category> arr = [];
+
+    for(Map<String, dynamic> i in json.decode(response.body)){
+      arr.add(Category.fromJson(i));
+    }
+
+    return arr;
+  }
+
+
+
 
   @override
   Widget build(BuildContext context) {
@@ -92,17 +119,81 @@ class _Homepagescreen extends State<Homepagescreen> {
         backgroundColor: Theme.of(context).colorScheme.inversePrimary,
         title: Text(widget.title),
       ),
-      body: GridView.count(
-        crossAxisCount: 2,
-        children: List.generate(100, (index) {
-          return Center(
-            child: Text(
-              'Item $index',
-              style: Theme.of(context).textTheme.headlineSmall,
-            ),
-          );
-        }),
+      body: FutureBuilder(
+        future: getCategories(),
+        builder: (context, projectSnap) {
+          if (projectSnap.hasData) {
+            if (projectSnap.data.length == 0)
+            {
+              return SizedBox(
+                height: MediaQuery.of(context).size.height * 2,
+                child: Align(
+                    alignment: Alignment.center,
+                    child: Text('אין תוצאות', style: TextStyle(fontSize: 23, color: Colors.black))
+                ),
+              );
+            }
+            else {
+              return Column(
+                crossAxisAlignment: CrossAxisAlignment.center,
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: <Widget>[
+
+
+                  Expanded(
+                      child:ListView.builder(
+                        itemCount: projectSnap.data.length,
+                        itemBuilder: (context, index) {
+                          Category project = projectSnap.data[index];
+
+
+                          return Card(
+                              child: ListTile(
+                                onTap: () {
+
+                                  Navigator.push(
+                                    context,
+                                    MaterialPageRoute(builder: (context)=> const ProductsListScreen(title :" דף הבית ")),
+                                  );
+
+                                },
+                                title: Text(project.categoryName!, style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold, color: Colors.black),), // Icon(Icons.timer),
+                                // subtitle: Text("[" + project.ariveHour! + "-" + project.exitHour! + "]" + "\n" + project.comments!, style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold, color: Colors.black),),
+                                // trailing: Container(
+                                //   decoration: const BoxDecoration(
+                                //     color: Colors.blue,
+                                //     borderRadius: BorderRadius.all(Radius.circular(5)),
+                                //   ),
+                                //   padding: const EdgeInsets.symmetric(
+                                //     horizontal: 12,
+                                //     vertical: 4,
+                                //   ),
+                                //   child: Text(
+                                //     project.totalHours!,   // + "שעות "
+                                //     overflow: TextOverflow.ellipsis,
+                                //     style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold, color: Colors.white),
+                                //   ),
+                                // ),
+
+
+                                isThreeLine: false,
+                              ));
+                        },
+                      )),
+                ],
+              );
+            }
+          }
+          else if (projectSnap.hasError)
+          {
+            print(projectSnap.error);
+            return  Center(child: Text('שגיאה, נסה שוב', style: TextStyle(fontSize: 22, fontWeight: FontWeight.bold)));
+          }
+          return Center(child: new CircularProgressIndicator(color: Colors.red,));
+        },
       ),
+
+
       drawer: Drawer(
         child: ListView(
           padding: EdgeInsets.zero,
