@@ -22,7 +22,8 @@ class _SearchScreenState extends State<Searchs> {
   void _filterProduct(String query) {
     setState(() {
       filteredProducts = products
-          .where((product) => product.toLowerCase().contains(query.toLowerCase()))
+          .where(
+              (product) => product.toLowerCase().contains(query.toLowerCase()))
           .toList();
     });
   }
@@ -57,7 +58,8 @@ class _SearchScreenState extends State<Searchs> {
               onChanged: _filterProduct,
             ),
             SizedBox(height: 20),
-            Text("קטגוריות", style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold)),
+            Text("קטגוריות",
+                style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold)),
             SizedBox(height: 15),
             Column(
               mainAxisAlignment: MainAxisAlignment.center,
@@ -76,20 +78,31 @@ class _SearchScreenState extends State<Searchs> {
               ],
             ),
             SizedBox(height: 20),
-            Text("מותגים", style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold)),
+            Text("מותגים",
+                style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold)),
             SizedBox(height: 10),
             Column(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
-                ElevatedButton(onPressed: () => _navigateToScreen("FAMILY"), child: Text("FAMILY")),
+                ElevatedButton(
+                    onPressed: () => _navigateToScreen("FAMILY"),
+                    child: Text("FAMILY")),
                 SizedBox(height: 10),
-                ElevatedButton(onPressed: () => _navigateToScreen("TORNADO"), child: Text("TORNADO")),
+                ElevatedButton(
+                    onPressed: () => _navigateToScreen("TORNADO"),
+                    child: Text("TORNADO")),
                 SizedBox(height: 10),
-                ElevatedButton(onPressed: () => _navigateToScreen("TADIRAN"), child: Text("TADIRAN")),
+                ElevatedButton(
+                    onPressed: () => _navigateToScreen("TADIRAN"),
+                    child: Text("TADIRAN")),
                 SizedBox(height: 10),
-                ElevatedButton(onPressed: () => _navigateToScreen("ELECTRA"), child: Text("ELECTRA")),
+                ElevatedButton(
+                    onPressed: () => _navigateToScreen("ELECTRA"),
+                    child: Text("ELECTRA")),
                 SizedBox(height: 10),
-                ElevatedButton(onPressed: () => _navigateToScreen("ELCO"), child: Text("ELCO")),
+                ElevatedButton(
+                    onPressed: () => _navigateToScreen("ELCO"),
+                    child: Text("ELCO")),
               ],
             ),
             SizedBox(height: 20),
@@ -98,7 +111,8 @@ class _SearchScreenState extends State<Searchs> {
                 itemCount: filteredProducts.length,
                 itemBuilder: (context, index) {
                   return ListTile(
-                    title: Text(filteredProducts[index], textAlign: TextAlign.right),
+                    title: Text(filteredProducts[index],
+                        textAlign: TextAlign.right),
                     leading: Icon(Icons.shopping_cart),
                   );
                 },

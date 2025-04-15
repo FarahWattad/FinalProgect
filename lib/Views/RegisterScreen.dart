@@ -16,8 +16,6 @@ class RegisterScreen extends StatefulWidget {
   State<RegisterScreen> createState() => RegisterScreenPageState();
 }
 
-
-
 class RegisterScreenPageState extends State<RegisterScreen> {
   int _counter = 0;
 
@@ -27,23 +25,23 @@ class RegisterScreenPageState extends State<RegisterScreen> {
   final _txtPassword = TextEditingController();
   final _txtConfirmPassword = TextEditingController();
 
-
   Future insertUser(BuildContext context, User us) async {
-
     //   SharedPreferences prefs = await SharedPreferences.getInstance();
     //  String? getInfoDeviceSTR = prefs.getString("getInfoDeviceSTR");
-    var url = "users/insertUser.php?firstName=" + us.FirstName + "&lastName=" + us.LastName;
+    var url = "users/insertUser.php?firstName=" +
+        us.FirstName +
+        "&lastName=" +
+        us.LastName;
     final response = await http.get(Uri.parse(serverPath + url));
     print(serverPath + url);
-    setState(() { });
+    setState(() {});
     // Navigator.pop(context);
     Navigator.push(
       context,
-      MaterialPageRoute(builder: (context)=> const Homepagescreen(title :" דף הבית ")),
+      MaterialPageRoute(
+          builder: (context) => const Homepagescreen(title: " דף הבית ")),
     );
   }
-
-
 
   void insertUserFunc() {
     if (_txtFirstName.text != "") {
@@ -53,8 +51,7 @@ class RegisterScreenPageState extends State<RegisterScreen> {
       us.City = _txtCity.text;
       us.Password = _txtPassword.text;
       us.ConfirmPassword = _txtConfirmPassword.text;
-      insertUser(context ,us );
-
+      insertUser(context, us);
 
       /*
       var uti = new Utils();

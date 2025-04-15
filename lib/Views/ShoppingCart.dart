@@ -19,6 +19,7 @@ class ShoppingCartPageState extends State<ShoppingCart> {
       _counter++;
     });
   }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -29,9 +30,7 @@ class ShoppingCartPageState extends State<ShoppingCart> {
       body: Center(
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
-          children: <Widget>[
-
-          ],
+          children: <Widget>[],
         ),
       ),
     );

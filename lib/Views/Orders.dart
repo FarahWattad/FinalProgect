@@ -6,7 +6,6 @@ import 'package:http/http.dart' as http;
 import '../Models/Order.dart';
 import '../Utils/ClientConfing.dart';
 
-
 class Orders extends StatefulWidget {
   const Orders({super.key, required this.title});
 
@@ -17,14 +16,11 @@ class Orders extends StatefulWidget {
 }
 
 class OrdersPageState extends State<Orders> {
-
-
   // final List<Map<String, dynamic>> orders = [
   //   {"id": 1, "total": 150.0, "date": "2025-02-08"},
   //   {"id": 2, "total": 230.5, "date": "2025-02-07"},
   //   {"id": 3, "total": 99.99, "date": "2025-02-06"},
   // ];
-
 
   Future getMyOrders() async {
     var url = "orders/getMyOrders.php";
@@ -39,19 +35,15 @@ class OrdersPageState extends State<Orders> {
     return arr;
   }
 
-
   // int? selectedOrderId;
-
-
 
   @override
   Widget build(BuildContext context) {
     return Directionality(
       textDirection: TextDirection.rtl,
       child: Scaffold(
-          appBar: AppBar(
-              title: Text("הזמנות")
-            /*
+          appBar: AppBar(title: Text("הזמנות")
+              /*
             backgroundColor: Theme.of(context).colorScheme.inversePrimary,
             title: Text(selectedOrderId == null
                 ? widget.title
@@ -67,7 +59,7 @@ class OrdersPageState extends State<Orders> {
                   )
                 : null,
              */
-          ),
+              ),
           body: FutureBuilder(
             future: getMyOrders(),
             builder: (context, projectSnap) {
@@ -79,7 +71,7 @@ class OrdersPageState extends State<Orders> {
                         alignment: Alignment.center,
                         child: Text('אין הזמנות',
                             style:
-                            TextStyle(fontSize: 50, color: Colors.black))),
+                                TextStyle(fontSize: 50, color: Colors.black))),
                   );
                 } else {
                   return Column(
@@ -88,33 +80,35 @@ class OrdersPageState extends State<Orders> {
                     children: <Widget>[
                       Expanded(
                           child: ListView.builder(
-                            itemCount: projectSnap.data.length,
-                            itemBuilder: (context, index) {
-                              Order project = projectSnap.data[index];
+                        itemCount: projectSnap.data.length,
+                        itemBuilder: (context, index) {
+                          Order project = projectSnap.data[index];
 
-                              return Card(
-                                  child: ListTile(
-                                    onTap: () {},
-                                    title: Text(
-                                      project.Address,
-                                      style: TextStyle(
-                                          fontSize: 30,
-                                          fontWeight: FontWeight.bold,
-                                          color: Colors.black),
-                                    ), // Icon(Icons.timer),
-                                    subtitle: Text(
-                                      "מספר הזמנה: ${project.orderID}\nתאריך הזמנה: ${project.orderTime}\nסה""כ: ${project.total.toString()} שח\n${project.fullNameOrder}",
-                                      style: TextStyle(fontSize: 18, color: Colors.black),
-                                    ),
-                                    isThreeLine: true,
-                                  ));
-                            },
-                          )),
+                          return Card(
+                              child: ListTile(
+                            onTap: () {},
+                            title: Text(
+                              project.Address,
+                              style: TextStyle(
+                                  fontSize: 30,
+                                  fontWeight: FontWeight.bold,
+                                  color: Colors.black),
+                            ), // Icon(Icons.timer),
+                            subtitle: Text(
+                              "מספר הזמנה: ${project.orderID}\nתאריך הזמנה: ${project.orderTime}\nסה"
+                              "כ: ${project.total.toString()} שח\n${project.fullNameOrder}",
+                              style:
+                                  TextStyle(fontSize: 18, color: Colors.black),
+                            ),
+                            isThreeLine: true,
+                          ));
+                        },
+                      )),
                     ],
                   );
                 }
               } else if (projectSnap.hasError) {
-                print( projectSnap.error);
+                print(projectSnap.error);
                 return Center(
                     child: Text('שגיאה, נסה שוב',
                         style: TextStyle(
@@ -122,15 +116,13 @@ class OrdersPageState extends State<Orders> {
               }
               return Center(
                   child: new CircularProgressIndicator(
-                    color: Colors.red,
-                  ));
+                color: Colors.red,
+              ));
             },
           )),
     );
   }
 }
-
-
 
 class OrderDetails extends StatelessWidget {
   final int orderId;
