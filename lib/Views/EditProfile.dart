@@ -37,7 +37,7 @@ class EditProfilePageState extends State<EditProfile> {
             ),
             Container(
               width: 300,
-              child :TextField(
+              child: TextField(
                 decoration: InputDecoration(
                   border: OutlineInputBorder(),
                   hintText: ' מייל או מספר טלפון',
@@ -50,7 +50,7 @@ class EditProfilePageState extends State<EditProfile> {
             ),
             Container(
               width: 300,
-              child : TextField(
+              child: TextField(
                 decoration: InputDecoration(
                   border: OutlineInputBorder(),
                   hintText: 'הזן סיסמה',
@@ -76,7 +76,7 @@ class EditProfilePageState extends State<EditProfile> {
             ),
             Container(
               width: 300,
-              child :TextField(
+              child: TextField(
                 decoration: InputDecoration(
                   border: OutlineInputBorder(),
                   hintText: 'הזן את שם העיר',
@@ -90,12 +90,13 @@ class EditProfilePageState extends State<EditProfile> {
               onPressed: () {
                 Navigator.push(
                   context,
-                  MaterialPageRoute(builder: (context)=> const Homepagescreen(title :" HomePage")),
+                  MaterialPageRoute(
+                      builder: (context) =>
+                          const Homepagescreen(title: " HomePage")),
                 );
               },
               child: Text('Save'),
             ),
-
           ],
         ),
       ),

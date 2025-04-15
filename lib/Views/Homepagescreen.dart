@@ -2,20 +2,19 @@ import 'dart:convert';
 import 'package:finalproject/Models/Category.dart';
 import 'package:finalproject/Views/ProductsListScreen.dart';
 import 'package:flutter/material.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 import '../Utils/ClientConfing.dart';
 import 'EditProfile.dart';
 import 'Orders.dart';
 import 'Searchs.dart';
 import 'ShoppingCart.dart';
 import 'package:http/http.dart' as http;
-
-
+import 'package:cached_network_image/cached_network_image.dart';
 
 
 
 class Homepagescreen extends StatefulWidget {
   const Homepagescreen({super.key, required this.title});
-
 
   final String title;
 
@@ -27,7 +26,7 @@ class _Homepagescreen extends State<Homepagescreen> {
   int _counter = 0;
   int _selectedIndex = 0;
   static const TextStyle optionStyle =
-  TextStyle(fontSize: 30, fontWeight: FontWeight.bold);
+      TextStyle(fontSize: 30, fontWeight: FontWeight.bold);
   static const List<Widget> _widgetOptions = <Widget>[
     Text(
       'Index 0: ראשי',
@@ -51,38 +50,30 @@ class _Homepagescreen extends State<Homepagescreen> {
     setState(() {
       _selectedIndex = index;
 
-      if(index == 1)
-        {
-            Navigator.push(
-                context,
-                MaterialPageRoute(
-                  builder: (context) => ShoppingCart(
-                    title: "ShoppingCart",
-                  ),
-                )
-            );
-        }
-      else if(index == 2)
-        {
-          Navigator.push(
-              context,
-              MaterialPageRoute(
-                builder: (context) => Searchs(
-                  title: "Searchs",
-                ),
-              )
-          );
-        }
-      else if(index == 3)
-      {
+      if (index == 1) {
+        Navigator.push(
+            context,
+            MaterialPageRoute(
+              builder: (context) => ShoppingCart(
+                title: "ShoppingCart",
+              ),
+            ));
+      } else if (index == 2) {
+        Navigator.push(
+            context,
+            MaterialPageRoute(
+              builder: (context) => Searchs(
+                title: "Searchs",
+              ),
+            ));
+      } else if (index == 3) {
         Navigator.push(
             context,
             MaterialPageRoute(
               builder: (context) => Orders(
                 title: "Orders",
               ),
-            )
-        );
+            ));
       }
     });
   }
@@ -93,24 +84,33 @@ class _Homepagescreen extends State<Homepagescreen> {
     });
   }
 */
+  // late Category _currCategory;
 
 
   Future getCategories() async {
-
     var url = "products/getCategories.php";
+    // print("farah");
     final response = await http.get(Uri.parse(serverPath + url));
     print(serverPath + url);
     List<Category> arr = [];
 
-    for(Map<String, dynamic> i in json.decode(response.body)){
+    for (Map<String, dynamic> i in json.decode(response.body)) {
       arr.add(Category.fromJson(i));
     }
 
     return arr;
   }
-
-
-
+  // Future<void> getDetails() async {
+  //   final SharedPreferences prefs = await SharedPreferences.getInstance();
+  //   final int? lastProductID = prefs.getInt('lastProductID');
+  //
+  //   var url = "products/getCategories.php?productID=$lastProductID";
+  //   final response = await http.get(Uri.parse(serverPath + url));
+  //   print(serverPath + url);
+  //   // Map<String, dynamic> i in json.decode(response.body)
+  //   _currCategory = Category.fromJson(json.decode(response.body));
+  //   setState(() {});
+  // }
 
   @override
   Widget build(BuildContext context) {
@@ -123,77 +123,109 @@ class _Homepagescreen extends State<Homepagescreen> {
         future: getCategories(),
         builder: (context, projectSnap) {
           if (projectSnap.hasData) {
-            if (projectSnap.data.length == 0)
-            {
+            if (projectSnap.data.length == 0) {
               return SizedBox(
                 height: MediaQuery.of(context).size.height * 2,
                 child: Align(
                     alignment: Alignment.center,
-                    child: Text('אין תוצאות', style: TextStyle(fontSize: 23, color: Colors.black))
-                ),
+                    child: Text('אין תוצאות',
+                        style: TextStyle(fontSize: 23, color: Colors.black))),
               );
-            }
-            else {
+            } else {
               return Column(
                 crossAxisAlignment: CrossAxisAlignment.center,
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: <Widget>[
-
-
                   Expanded(
-                      child:ListView.builder(
-                        itemCount: projectSnap.data.length,
-                        itemBuilder: (context, index) {
-                          Category project = projectSnap.data[index];
+                      child: ListView.builder(
+                    itemCount: projectSnap.data.length,
+                    itemBuilder: (context, index) {
+                      Category project = projectSnap.data[index];
 
+                      return Card(
+                          child: ListTile(
+                        onTap: () async {
+                          final SharedPreferences prefs =
+                              await SharedPreferences.getInstance();
+                          await prefs.setInt(
+                              'lastCategoryID', project.categoryID);
 
-                          return Card(
-                              child: ListTile(
-                                onTap: () {
-
-                                  Navigator.push(
-                                    context,
-                                    MaterialPageRoute(builder: (context)=> const ProductsListScreen(title :" דף הבית ")),
-                                  );
-
-                                },
-                                title: Text(project.categoryName!, style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold, color: Colors.black),), // Icon(Icons.timer),
-                                // subtitle: Text("[" + project.ariveHour! + "-" + project.exitHour! + "]" + "\n" + project.comments!, style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold, color: Colors.black),),
-                                // trailing: Container(
-                                //   decoration: const BoxDecoration(
-                                //     color: Colors.blue,
-                                //     borderRadius: BorderRadius.all(Radius.circular(5)),
-                                //   ),
-                                //   padding: const EdgeInsets.symmetric(
-                                //     horizontal: 12,
-                                //     vertical: 4,
-                                //   ),
-                                //   child: Text(
-                                //     project.totalHours!,   // + "שעות "
-                                //     overflow: TextOverflow.ellipsis,
-                                //     style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold, color: Colors.white),
-                                //   ),
-                                // ),
-
-
-                                isThreeLine: false,
-                              ));
+                          Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                                builder: (context) => ProductsListScreen(
+                                    title: project.categoryName)),
+                          );
                         },
-                      )),
+                        title:
+                        Row(
+                          children: [
+                            Text(
+                              project.categoryName!,
+                              style: TextStyle(
+                                  fontSize: 25,
+                                  fontWeight: FontWeight.bold,
+                                  color: Colors.black),
+                            ),
+                            CachedNetworkImage(
+                              imageUrl: project.imageURC,
+                              placeholder: (context, url) =>
+                              const CircularProgressIndicator(),
+                              errorWidget: (context, url, error) => const Icon(Icons.error),
+                              // placeholder: (context, url) => const CircleAvatar(
+                              //   backgroundColor: Colors.amber,
+                              //   radius: 20,
+                              // ),
+                              width: 80,
+                              height: 80,
+                            ),
+                          ],
+                        ),
+
+                            // trailing:
+                        // Center(
+                        //     child:
+
+                            // Image.network(project.imageURC),
+                          // ),
+                            // Icon(Icons.timer),
+                        // subtitle: Text("[" + project.ariveHour! + "-" + project.exitHour! + "]" + "\n" + project.comments!, style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold, color: Colors.black),),
+                        // trailing: Container(
+                        //   decoration: const BoxDecoration(
+                        //     color: Colors.blue,
+                        //     borderRadius: BorderRadius.all(Radius.circular(5)),
+                        //   ),
+                        //   padding: const EdgeInsets.symmetric(
+                        //     horizontal: 12,
+                        //     vertical: 4,
+                        //   ),
+                        //   child: Text(
+                        //     project.totalHours!,   // + "שעות "
+                        //     overflow: TextOverflow.ellipsis,
+                        //     style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold, color: Colors.white),
+                        //   ),
+                        // ),
+
+                        isThreeLine: false,
+                      ));
+                    },
+                  )),
                 ],
               );
             }
-          }
-          else if (projectSnap.hasError)
-          {
+          } else if (projectSnap.hasError) {
             print(projectSnap.error);
-            return  Center(child: Text('שגיאה, נסה שוב', style: TextStyle(fontSize: 22, fontWeight: FontWeight.bold)));
+            return Center(
+                child: Text('שגיאה, נסה שוב',
+                    style:
+                        TextStyle(fontSize: 22, fontWeight: FontWeight.bold)));
           }
-          return Center(child: new CircularProgressIndicator(color: Colors.red,));
+          return Center(
+              child: new CircularProgressIndicator(
+            color: Colors.red,
+          ));
         },
       ),
-
-
       drawer: Drawer(
         child: ListView(
           padding: EdgeInsets.zero,
@@ -221,7 +253,7 @@ class _Homepagescreen extends State<Homepagescreen> {
               },
             ),
             ListTile(
-              title: const Text('Log Out'),
+              title: const Text('התנתקות'),
               selected: _selectedIndex == 2,
               onTap: () {
                 _onItemTapped(2);
@@ -239,7 +271,6 @@ class _Homepagescreen extends State<Homepagescreen> {
           ),
           BottomNavigationBarItem(
             icon: Icon(Icons.shopping_basket),
-
             label: 'הסל שלי',
           ),
           BottomNavigationBarItem(
