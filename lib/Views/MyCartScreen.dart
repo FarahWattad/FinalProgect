@@ -1,15 +1,11 @@
 import 'dart:convert';
-
 import 'package:flutter/material.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import '../Models/Product.dart';
 import '../Utils/ClientConfing.dart';
 import 'Homepagescreen.dart';
 import 'package:http/http.dart' as http;
-
 import 'ProductDetailsScreen.dart';
-
-
 
 class ShoppingCart extends StatefulWidget {
   const ShoppingCart({super.key, required this.title});

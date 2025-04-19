@@ -17,11 +17,6 @@ class Orders extends StatefulWidget {
 }
 
 class OrdersPageState extends State<Orders> {
-  // final List<Map<String, dynamic>> orders = [
-  //   {"id": 1, "total": 150.0, "date": "2025-02-08"},
-  //   {"id": 2, "total": 230.5, "date": "2025-02-07"},
-  //   {"id": 3, "total": 99.99, "date": "2025-02-06"},
-  // ];
 
   Future getMyOrders() async {
     var url = "orders/getMyOrders.php";
