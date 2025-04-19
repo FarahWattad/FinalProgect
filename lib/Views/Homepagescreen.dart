@@ -5,9 +5,9 @@ import 'package:flutter/material.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import '../Utils/ClientConfing.dart';
 import 'EditProfile.dart';
-import 'Orders.dart';
-import 'Searchs.dart';
-import 'ShoppingCart.dart';
+import 'MyOrdersListScreen.dart';
+import 'SearchScreen.dart';
+import 'MyCartScreen.dart';
 import 'package:http/http.dart' as http;
 import 'package:cached_network_image/cached_network_image.dart';
 

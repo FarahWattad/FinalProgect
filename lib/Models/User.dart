@@ -4,9 +4,10 @@ class User{
     this.CreatedDateTime="",
     this.LastName="",
     this.City="",
-    this.UserID=0,
+    this.UserID="",
     this.Password="",
-    this.ConfirmPassword="",
+    this.Email="",
+  this.ConfirmPassword="",
   });
 
 
@@ -14,9 +15,10 @@ class User{
   String LastName;
   String CreatedDateTime;
   String City;
-  int UserID ;
+  String UserID ;
   String Password;
   String ConfirmPassword;
+  String Email;
 
   factory User.fromJson(Map<String,dynamic> json)=>User(
     FirstName: json["FirstName"],
@@ -26,6 +28,8 @@ class User{
     UserID : json["UserID "],
     Password : json["Password "],
     ConfirmPassword : json["ConfirmPassword "],
+  Email : json["Email "],
+
   );
   Map<String,dynamic> toJson() => {
     "FirstName": FirstName,
@@ -35,6 +39,7 @@ class User{
     "UserID ":UserID ,
     "Password ":Password ,
     "ConfirmPassword ":ConfirmPassword ,
+  "Email ":Email ,
 
   };
 }

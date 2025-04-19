@@ -38,4 +38,5 @@ class Product{
     "imageURL":imageURL,
 
   };
+
 }

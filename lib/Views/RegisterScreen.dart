@@ -53,15 +53,6 @@ class RegisterScreenPageState extends State<RegisterScreen> {
       us.ConfirmPassword = _txtConfirmPassword.text;
       insertUser(context, us);
 
-      /*
-      var uti = new Utils();
-      uti.showMyDialog(context, "success", "you registed successfully");
-      _txtFirstName.text = "";
-      _txtLastName.text = "";
-      _txtCity.text = "";
-      _txtPassword.text = "";
-      _txtConfirmPassword.text = "";
-       */
     } else {
       var uti = new Utils();
       uti.showMyDialog(context, "Required", "Please insert First name");

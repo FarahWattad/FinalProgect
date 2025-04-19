@@ -5,6 +5,7 @@ import 'package:http/http.dart' as http;
 
 import '../Models/Order.dart';
 import '../Utils/ClientConfing.dart';
+import 'OrderDetailsScreen.dart';
 
 class Orders extends StatefulWidget {
   const Orders({super.key, required this.title});
@@ -86,7 +87,14 @@ class OrdersPageState extends State<Orders> {
 
                           return Card(
                               child: ListTile(
-                            onTap: () {},
+                            onTap: () {
+
+
+                              Navigator.push(
+                                context,
+                                MaterialPageRoute(builder:(context) => const OrderDetails(orderId: 12, items: [],)),
+                              );
+                            },
                             title: Text(
                               project.Address,
                               style: TextStyle(
@@ -123,7 +131,7 @@ class OrdersPageState extends State<Orders> {
     );
   }
 }
-
+/*
 class OrderDetails extends StatelessWidget {
   final int orderId;
 
@@ -144,3 +152,4 @@ class OrderDetails extends StatelessWidget {
     );
   }
 }
+*/

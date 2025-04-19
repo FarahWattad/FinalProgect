@@ -1,8 +1,12 @@
+import 'dart:convert';
 import 'dart:io';
 
 import 'package:finalproject/Views/RegisterScreen.dart';
 import 'package:flutter/material.dart';
-
+import 'package:shared_preferences/shared_preferences.dart';
+import 'package:http/http.dart' as http;
+import 'Models/checkLoginModel.dart';
+import 'Utils/ClientConfing.dart';
 import 'Utils/Utils.dart';
 import 'Views/Homepagescreen.dart';
 
@@ -39,14 +43,58 @@ class MyHomePage extends StatefulWidget {
 }
 
 class _MyHomePageState extends State<MyHomePage> {
-  int _counter = 0;
 
-  void _incrementCounter() {
-    setState(() {
-      _counter++;
-    });
+
+  fillSavedPars() async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    _txtEmail.text = prefs.get("email").toString();
+    _txtPassword.text = prefs.get("password").toString();
+    if(_txtEmail.text != "" && _txtPassword.text != "")
+    {
+      checkLogin(context);
+    }
   }
 
+
+
+
+  Future checkLogin(BuildContext context) async {
+
+    if(_txtPassword.text == "" || _txtEmail.text == "")
+    {
+      var uti = new Utils();
+      uti.showMyDialog(context, "חובה", "בבקשה הזן האיימל שלך או הסיסמה");
+    }
+    else
+    {
+      //   SharedPreferences prefs = await SharedPreferences.getInstance();
+      //  String? getInfoDeviceSTR = prefs.getString("getInfoDeviceSTR");
+      var url = "login/checkLogin.php?Email=" + _txtEmail.text + "&Password=" +  _txtPassword.text;
+      final response = await http.get(Uri.parse(serverPath + url));
+      print(serverPath + url);
+      // setState(() { });
+      // Navigator.pop(context);
+      if(checkLoginModel.fromJson(jsonDecode(response.body)).userID == 0)
+      {
+        // return ' אימיל ו/או הסיסמה שגויים';
+        var uti = new Utils();
+        uti.showMyDialog(context, "שגיאה", "אימיל ו/או הסיסמה שגויים");
+      }
+      else
+      {
+        // print("SharedPreferences 1");
+        SharedPreferences prefs = await SharedPreferences.getInstance();
+        await prefs.setString('userID', checkLoginModel.fromJson(jsonDecode(response.body)).userID!.toString());
+        await prefs.setString('email', _txtEmail.text);
+        await prefs.setString('password', _txtPassword.text);
+
+        Navigator.push(
+          context,
+          MaterialPageRoute(builder:(context) => const Homepagescreen(title: "בית")),
+        );
+      }
+    }
+  }
   checkConction() async {
     try {
       final result = await InternetAddress.lookup('google.com');
@@ -64,7 +112,9 @@ class _MyHomePageState extends State<MyHomePage> {
 
   @override
   Widget build(BuildContext context) {
+
     checkConction();
+    fillSavedPars();
 
     return Scaffold(
       appBar: AppBar(
@@ -113,12 +163,8 @@ class _MyHomePageState extends State<MyHomePage> {
                 foregroundColor: MaterialStateProperty.all<Color>(Colors.blue),
               ),
               onPressed: () {
-                Navigator.push(
-                  context,
-                  MaterialPageRoute(
-                      builder: (context) =>
-                          const Homepagescreen(title: " דף הבית")),
-                );
+                checkLogin(context);
+
               },
               child: Text('כניסה'),
             ),
