@@ -1,4 +1,5 @@
 import 'dart:convert';
+import 'package:finalproject/Models/MyCart.dart';
 import 'package:flutter/material.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import '../Models/Product.dart';
@@ -67,21 +68,20 @@ class ShoppingCartPageState extends State<ShoppingCart> {
                       child: ListView.builder(
                         itemCount: projectSnap.data.length,
                         itemBuilder: (context, index) {
-                          Product project = projectSnap.data[index];
+                          MyCart project = projectSnap.data[index];
 
                           return Card(
                               child: ListTile(
                                 onTap: () async {
                                   final SharedPreferences prefs =
                                   await SharedPreferences.getInstance();
-                                  await prefs.setInt(
-                                      'lastProductID', project.productID);
+                                  await prefs.setString('lastProductID', project.productID!.toString());
 
                                   Navigator.push(
                                     context,
                                     MaterialPageRoute(
                                         builder: (context) => ProductDetailsScreen(
-                                          title: project.productName,
+                                          title: project.productName!,
                                         )),
                                   );
                                 },

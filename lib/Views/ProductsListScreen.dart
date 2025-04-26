@@ -26,8 +26,7 @@ class _ProductsListScreen extends State<ProductsListScreen> {
 
   Future getProducts() async {
     final SharedPreferences prefs = await SharedPreferences.getInstance();
-    final int? lastCategoryID = prefs.getInt('lastCategoryID');
-
+    final String? lastCategoryID = prefs.getString('lastCategoryID');
     var url =
         "products/getProducts.php?categoryID=" + lastCategoryID.toString();
     final response = await http.get(Uri.parse(serverPath + url));
@@ -76,7 +75,7 @@ class _ProductsListScreen extends State<ProductsListScreen> {
                         onTap: () async {
                           final SharedPreferences prefs =
                               await SharedPreferences.getInstance();
-                          await prefs.setInt(
+                          await prefs.setString(
                               'lastProductID', project.productID);
 
                           Navigator.push(

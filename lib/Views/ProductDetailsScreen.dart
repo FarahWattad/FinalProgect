@@ -24,7 +24,7 @@ class ProductPageState extends State<ProductDetailsScreen> {
 
   Future<void> getDetails() async {
     final SharedPreferences prefs = await SharedPreferences.getInstance();
-    final int? lastProductID = prefs.getInt('lastProductID');
+    final String? lastProductID = prefs.getString('lastProductID');
 
     var url = "products/getProductDetails.php?productID=$lastProductID";
     final response = await http.get(Uri.parse(serverPath + url));

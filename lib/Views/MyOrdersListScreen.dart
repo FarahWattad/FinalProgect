@@ -126,25 +126,3 @@ class OrdersPageState extends State<Orders> {
     );
   }
 }
-/*
-class OrderDetails extends StatelessWidget {
-  final int orderId;
-
-  const OrderDetails({super.key, required this.orderId});
-
-  @override
-  Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        title: Text("تفاصيل الطلبية رقم $orderId"),
-      ),
-      body: Center(
-        child: Text(
-          "هنا تفاصيل الطلبية رقم $orderId",
-          style: TextStyle(fontSize: 22, fontWeight: FontWeight.bold),
-        ),
-      ),
-    );
-  }
-}
-*/

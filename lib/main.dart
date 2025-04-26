@@ -1,14 +1,14 @@
 import 'dart:convert';
 import 'dart:io';
-
-import 'package:finalproject/Views/RegisterScreen.dart';
 import 'package:flutter/material.dart';
-import 'package:shared_preferences/shared_preferences.dart';
 import 'package:http/http.dart' as http;
+import 'package:shared_preferences/shared_preferences.dart';
+
 import 'Models/checkLoginModel.dart';
 import 'Utils/ClientConfing.dart';
 import 'Utils/Utils.dart';
 import 'Views/Homepagescreen.dart';
+import 'Views/RegisterScreen.dart';
 
 void main() {
   runApp(const MyApp());
@@ -24,11 +24,15 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       title: 'Flutter Demo',
+      debugShowCheckedModeBanner: false,
       theme: ThemeData(
-        colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
+        colorScheme: const ColorScheme.light(
+          primary: Colors.blue,
+          secondary: Colors.deepOrange,
+        ),
         useMaterial3: true,
       ),
-      home: const MyHomePage(title: 'Farah'),
+      home: const MyHomePage(title: 'קוראייר'),
     );
   }
 }
@@ -43,46 +47,35 @@ class MyHomePage extends StatefulWidget {
 }
 
 class _MyHomePageState extends State<MyHomePage> {
-
+  @override
+  void initState() {
+    super.initState();
+    checkConnection();
+    fillSavedPars();
+  }
 
   fillSavedPars() async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
-    _txtEmail.text = prefs.get("email").toString();
-    _txtPassword.text = prefs.get("password").toString();
-    if(_txtEmail.text != "" && _txtPassword.text != "")
-    {
+    _txtEmail.text = prefs.getString("email") ?? '';
+    _txtPassword.text = prefs.getString("password") ?? '';
+
+    if (_txtEmail.text.isNotEmpty && _txtPassword.text.isNotEmpty) {
       checkLogin(context);
     }
   }
 
-
-
-
   Future checkLogin(BuildContext context) async {
-
-    if(_txtPassword.text == "" || _txtEmail.text == "")
-    {
-      var uti = new Utils();
+    if (_txtEmail.text.isEmpty || _txtPassword.text.isEmpty) {
+      var uti = Utils();
       uti.showMyDialog(context, "חובה", "בבקשה הזן האיימל שלך או הסיסמה");
-    }
-    else
-    {
-      //   SharedPreferences prefs = await SharedPreferences.getInstance();
-      //  String? getInfoDeviceSTR = prefs.getString("getInfoDeviceSTR");
-      var url = "login/checkLogin.php?Email=" + _txtEmail.text + "&Password=" +  _txtPassword.text;
+    } else {
+      var url = "login/checkLogin.php?Email=${_txtEmail.text}&Password=${_txtPassword.text}";
       final response = await http.get(Uri.parse(serverPath + url));
-      print(serverPath + url);
-      // setState(() { });
-      // Navigator.pop(context);
-      if(checkLoginModel.fromJson(jsonDecode(response.body)).userID == 0)
-      {
-        // return ' אימיל ו/או הסיסמה שגויים';
-        var uti = new Utils();
+
+      if (checkLoginModel.fromJson(jsonDecode(response.body)).userID == 0) {
+        var uti = Utils();
         uti.showMyDialog(context, "שגיאה", "אימיל ו/או הסיסמה שגויים");
-      }
-      else
-      {
-        // print("SharedPreferences 1");
+      } else {
         SharedPreferences prefs = await SharedPreferences.getInstance();
         await prefs.setString('userID', checkLoginModel.fromJson(jsonDecode(response.body)).userID!.toString());
         await prefs.setString('email', _txtEmail.text);
@@ -90,126 +83,146 @@ class _MyHomePageState extends State<MyHomePage> {
 
         Navigator.push(
           context,
-          MaterialPageRoute(builder:(context) => const Homepagescreen(title: "בית")),
+          MaterialPageRoute(builder: (context) => const Homepagescreen(title: "בית")),
         );
       }
     }
   }
-  checkConction() async {
+
+  checkConnection() async {
     try {
       final result = await InternetAddress.lookup('google.com');
-      if (result.isNotEmpty && result[0].rawAddress.isNotEmpty) {
-        // print('connected to internet');// print(result);// return 1;
+      if (result.isEmpty || result[0].rawAddress.isEmpty) {
+        throw SocketException('No internet');
       }
     } on SocketException catch (_) {
-      // print('not connected to internet');// print(result);
-      var uti = new Utils();
-      uti.showMyDialog(context, "אין אינטרנט",
-          "האפליקציה דורשת חיבור לאינטרנט, נא להתחבר בבקשה");
-      return;
+      var uti = Utils();
+      uti.showMyDialog(context, "אין אינטרנט", "האפליקציה דורשת חיבור לאינטרנט, נא להתחבר בבקשה");
     }
   }
 
   @override
   Widget build(BuildContext context) {
-
-    checkConction();
-    fillSavedPars();
-
     return Scaffold(
+      backgroundColor: const Color(0xFFF5F5F5),
       appBar: AppBar(
-        backgroundColor: Theme.of(context).colorScheme.inversePrimary,
-        title: Text(widget.title),
+        backgroundColor: Theme.of(context).colorScheme.primary,
+        title: Text(widget.title, style: const TextStyle(color: Colors.white)),
+        centerTitle: true,
+        elevation: 5,
       ),
       body: Center(
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: <Widget>[
-            // Container(
-            //   padding:
-            //   EdgeInsets.all(50),
-            //   child: Image.asset('Images/3shahtat.png'),
-            // ),
-            Text(
-              " : מייל או מספר טלפון ",
-              style: TextStyle(fontSize: 20),
-            ),
-            Container(
-              width: 300,
-              child: TextField(
-                controller: _txtEmail,
-                decoration: InputDecoration(
-                  border: OutlineInputBorder(),
-                  hintText: 'מייל או מספר טלפון',
-                ),
-              ),
-            ),
-            Text(
-              ": סיסמה ",
-              style: TextStyle(fontSize: 20),
-            ),
-            Container(
-              width: 300,
-              child: TextField(
-                controller: _txtPassword,
-                decoration: InputDecoration(
-                  border: OutlineInputBorder(),
-                  hintText: 'הזן סיסמה',
-                ),
-              ),
-            ),
-            TextButton(
-              style: ButtonStyle(
-                foregroundColor: MaterialStateProperty.all<Color>(Colors.blue),
-              ),
-              onPressed: () {
-                checkLogin(context);
-
-              },
-              child: Text('כניסה'),
-            ),
-            TextButton(
-              style: ButtonStyle(
-                foregroundColor: MaterialStateProperty.all<Color>(Colors.blue),
-              ),
-              onPressed: () {
-                //מעבר בין מסכים
-                Navigator.push(
-                  context,
-                  MaterialPageRoute(
-                      builder: (context) =>
-                          const RegisterScreen(title: "חשבון חדש")),
-                );
-              },
-              child: Text('חשבון חדש'),
-            ),
-
-            TextButton(
-              //اخر اشي عشان الدفع
-              style: ButtonStyle(
-                foregroundColor: MaterialStateProperty.all<Color>(Colors.blue),
-              ),
-              onPressed: () => showDialog<String>(
-                context: context,
-                builder: (BuildContext context) => AlertDialog(
-                  title: const Text('מידע'),
-                  content: Text(_txtEmail.text + "_" + _txtPassword.text),
-                  actions: <Widget>[
-                    TextButton(
-                      onPressed: () => Navigator.pop(context, 'ביטול'),
-                      child: const Text('ביטול'),
+        child: SingleChildScrollView(
+          child: Padding(
+            padding: const EdgeInsets.symmetric(horizontal: 20),
+            child: Card(
+              elevation: 8,
+              shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(16)),
+              child: Padding(
+                padding: const EdgeInsets.all(24.0),
+                child: Column(
+                  mainAxisSize: MainAxisSize.min,
+                  children: [
+                    const Icon(Icons.account_circle, size: 100, color: Colors.blue),
+                    const SizedBox(height: 20),
+                    Text(
+                      "כניסה לחשבון",
+                      style: TextStyle(
+                        fontSize: 26,
+                        fontWeight: FontWeight.bold,
+                        color: Colors.deepOrange.shade700,
+                      ),
+                    ),
+                    const SizedBox(height: 30),
+                    TextField(
+                      controller: _txtEmail,
+                      decoration: InputDecoration(
+                        labelText: 'מייל או מספר טלפון',
+                        prefixIcon: const Icon(Icons.email),
+                        border: OutlineInputBorder(borderRadius: BorderRadius.circular(12)),
+                      ),
+                    ),
+                    const SizedBox(height: 20),
+                    TextField(
+                      controller: _txtPassword,
+                      obscureText: true,
+                      decoration: InputDecoration(
+                        labelText: 'סיסמה',
+                        prefixIcon: const Icon(Icons.lock),
+                        border: OutlineInputBorder(borderRadius: BorderRadius.circular(12)),
+                      ),
+                    ),
+                    const SizedBox(height: 30),
+                    SizedBox(
+                      width: double.infinity,
+                      child: ElevatedButton(
+                        onPressed: () {
+                          checkLogin(context);
+                        },
+                        style: ElevatedButton.styleFrom(
+                          backgroundColor: Colors.blue,
+                          padding: const EdgeInsets.symmetric(vertical: 14),
+                          shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12)),
+                        ),
+                        child: const Text(
+                          'כניסה',
+                          style: TextStyle(
+                            fontSize: 18,
+                            fontWeight: FontWeight.bold,
+                            color: Colors.white, // النص أبيض في الزر
+                          ),
+                        ),
+                      ),
+                    ),
+                    const SizedBox(height: 10),
+                    SizedBox(
+                      width: double.infinity,
+                      child: OutlinedButton(
+                        onPressed: () {
+                          Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                              builder: (context) => const RegisterScreen(title: "חשבון חדש"),
+                            ),
+                          );
+                        },
+                        style: OutlinedButton.styleFrom(
+                          side: const BorderSide(color: Colors.deepOrange),
+                          shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12)),
+                        ),
+                        child: Text(
+                          'יצירת חשבון חדש',
+                          style: TextStyle(color: Colors.deepOrange.shade700, fontSize: 16),
+                        ),
+                      ),
                     ),
                     TextButton(
-                      onPressed: () => Navigator.pop(context, 'בסדר'),
-                      child: const Text('בסדר'),
+                      onPressed: () {
+                        showDialog<String>(
+                          context: context,
+                          builder: (BuildContext context) => AlertDialog(
+                            title: const Text('מידע'),
+                            content: Text("${_txtEmail.text}_${_txtPassword.text}"),
+                            actions: <Widget>[
+                              TextButton(
+                                onPressed: () => Navigator.pop(context, 'ביטול'),
+                                child: const Text('ביטול'),
+                              ),
+                              TextButton(
+                                onPressed: () => Navigator.pop(context, 'בסדר'),
+                                child: const Text('בסדר'),
+                              ),
+                            ],
+                          ),
+                        );
+                      },
+                      child: const Text('הצג נתונים', style: TextStyle(color: Colors.blue)),
                     ),
                   ],
                 ),
               ),
-
-              child: const Text('נתונים'),
             ),
-          ],
+          ),
         ),
       ),
     );

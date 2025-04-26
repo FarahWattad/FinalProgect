@@ -92,7 +92,7 @@ class EditProfilePageState extends State<EditProfile> {
                   context,
                   MaterialPageRoute(
                       builder: (context) =>
-                          const Homepagescreen(title: " HomePage")),
+                          const Homepagescreen(title: " דף הבית")),
                 );
               },
               child: Text('Save'),

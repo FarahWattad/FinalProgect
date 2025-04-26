@@ -11,8 +11,6 @@ import 'MyCartScreen.dart';
 import 'package:http/http.dart' as http;
 import 'package:cached_network_image/cached_network_image.dart';
 
-
-
 class Homepagescreen extends StatefulWidget {
   const Homepagescreen({super.key, required this.title});
 
@@ -26,7 +24,7 @@ class _Homepagescreen extends State<Homepagescreen> {
   int _counter = 0;
   int _selectedIndex = 0;
   static const TextStyle optionStyle =
-      TextStyle(fontSize: 30, fontWeight: FontWeight.bold);
+  TextStyle(fontSize: 30, fontWeight: FontWeight.bold);
   static const List<Widget> _widgetOptions = <Widget>[
     Text(
       'Index 0: ראשי',
@@ -77,19 +75,9 @@ class _Homepagescreen extends State<Homepagescreen> {
       }
     });
   }
-  /*
-  void _incrementCounter() {
-    setState(() {
-      _counter++;
-    });
-  }
-*/
-  // late Category _currCategory;
-
 
   Future getCategories() async {
     var url = "products/getCategories.php";
-    // print("farah");
     final response = await http.get(Uri.parse(serverPath + url));
     print(serverPath + url);
     List<Category> arr = [];
@@ -100,17 +88,6 @@ class _Homepagescreen extends State<Homepagescreen> {
 
     return arr;
   }
-  // Future<void> getDetails() async {
-  //   final SharedPreferences prefs = await SharedPreferences.getInstance();
-  //   final int? lastProductID = prefs.getInt('lastProductID');
-  //
-  //   var url = "products/getCategories.php?productID=$lastProductID";
-  //   final response = await http.get(Uri.parse(serverPath + url));
-  //   print(serverPath + url);
-  //   // Map<String, dynamic> i in json.decode(response.body)
-  //   _currCategory = Category.fromJson(json.decode(response.body));
-  //   setState(() {});
-  // }
 
   @override
   Widget build(BuildContext context) {
@@ -138,78 +115,48 @@ class _Homepagescreen extends State<Homepagescreen> {
                 children: <Widget>[
                   Expanded(
                       child: ListView.builder(
-                    itemCount: projectSnap.data.length,
-                    itemBuilder: (context, index) {
-                      Category project = projectSnap.data[index];
+                        itemCount: projectSnap.data.length,
+                        itemBuilder: (context, index) {
+                          Category project = projectSnap.data[index];
 
-                      return Card(
-                          child: ListTile(
-                        onTap: () async {
-                          final SharedPreferences prefs =
-                              await SharedPreferences.getInstance();
-                          await prefs.setInt(
-                              'lastCategoryID', project.categoryID);
+                          return Card(
+                              child: ListTile(
+                                onTap: () async {
+                                  final SharedPreferences prefs =
+                                  await SharedPreferences.getInstance();
+                                  await prefs.setString(
+                                      'lastCategoryID', project.categoryID.toString());
 
-                          Navigator.push(
-                            context,
-                            MaterialPageRoute(
-                                builder: (context) => ProductsListScreen(
-                                    title: project.categoryName)),
-                          );
+                                  Navigator.push(
+                                    context,
+                                    MaterialPageRoute(
+                                        builder: (context) => ProductsListScreen(
+                                            title: project.categoryName)),
+                                  );
+                                },
+                                title: Row(
+                                  children: [
+                                    Text(
+                                      project.categoryName!,
+                                      style: TextStyle(
+                                          fontSize: 25,
+                                          fontWeight: FontWeight.bold,
+                                          color: Colors.black),
+                                    ),
+                                    CachedNetworkImage(
+                                      imageUrl: project.imageURC,
+                                      placeholder: (context, url) =>
+                                      const CircularProgressIndicator(),
+                                      errorWidget: (context, url, error) =>
+                                      const Icon(Icons.error),
+                                      width: 80,
+                                      height: 80,
+                                    ),
+                                  ],
+                                ),
+                              ));
                         },
-                        title:
-                        Row(
-                          children: [
-                            Text(
-                              project.categoryName!,
-                              style: TextStyle(
-                                  fontSize: 25,
-                                  fontWeight: FontWeight.bold,
-                                  color: Colors.black),
-                            ),
-                            CachedNetworkImage(
-                              imageUrl: project.imageURC,
-                              placeholder: (context, url) =>
-                              const CircularProgressIndicator(),
-                              errorWidget: (context, url, error) => const Icon(Icons.error),
-                              // placeholder: (context, url) => const CircleAvatar(
-                              //   backgroundColor: Colors.amber,
-                              //   radius: 20,
-                              // ),
-                              width: 80,
-                              height: 80,
-                            ),
-                          ],
-                        ),
-
-                            // trailing:
-                        // Center(
-                        //     child:
-
-                            // Image.network(project.imageURC),
-                          // ),
-                            // Icon(Icons.timer),
-                        // subtitle: Text("[" + project.ariveHour! + "-" + project.exitHour! + "]" + "\n" + project.comments!, style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold, color: Colors.black),),
-                        // trailing: Container(
-                        //   decoration: const BoxDecoration(
-                        //     color: Colors.blue,
-                        //     borderRadius: BorderRadius.all(Radius.circular(5)),
-                        //   ),
-                        //   padding: const EdgeInsets.symmetric(
-                        //     horizontal: 12,
-                        //     vertical: 4,
-                        //   ),
-                        //   child: Text(
-                        //     project.totalHours!,   // + "שעות "
-                        //     overflow: TextOverflow.ellipsis,
-                        //     style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold, color: Colors.white),
-                        //   ),
-                        // ),
-
-                        isThreeLine: false,
-                      ));
-                    },
-                  )),
+                      )),
                 ],
               );
             }
@@ -218,12 +165,12 @@ class _Homepagescreen extends State<Homepagescreen> {
             return Center(
                 child: Text('שגיאה, נסה שוב',
                     style:
-                        TextStyle(fontSize: 22, fontWeight: FontWeight.bold)));
+                    TextStyle(fontSize: 22, fontWeight: FontWeight.bold)));
           }
           return Center(
-              child: new CircularProgressIndicator(
-            color: Colors.red,
-          ));
+              child: CircularProgressIndicator(
+                color: Colors.red,
+              ));
         },
       ),
       drawer: Drawer(
@@ -264,6 +211,7 @@ class _Homepagescreen extends State<Homepagescreen> {
         ),
       ),
       bottomNavigationBar: BottomNavigationBar(
+        backgroundColor: Colors.white, // الخلفية بيضاء
         items: const <BottomNavigationBarItem>[
           BottomNavigationBarItem(
             icon: Icon(Icons.home),
@@ -283,8 +231,8 @@ class _Homepagescreen extends State<Homepagescreen> {
           ),
         ],
         currentIndex: _selectedIndex,
-        selectedItemColor: Colors.amber[800],
-        unselectedItemColor: Colors.black,
+        selectedItemColor: Colors.orange, // اللون البرتقالي للأيقونة المحددة
+        unselectedItemColor: Colors.blue, // اللون الأزرق للأيقونات غير المحددة
         onTap: _onItemTapped,
       ),
     );
