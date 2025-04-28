@@ -52,25 +52,28 @@ class _Homepagescreen extends State<Homepagescreen> {
         Navigator.push(
             context,
             MaterialPageRoute(
-              builder: (context) => ShoppingCart(
-                title: "ShoppingCart",
-              ),
+              builder: (context) =>
+                  ShoppingCart(
+                    title: "ShoppingCart",
+                  ),
             ));
       } else if (index == 2) {
         Navigator.push(
             context,
             MaterialPageRoute(
-              builder: (context) => Searchs(
-                title: "Searchs",
-              ),
+              builder: (context) =>
+                  Searchs(
+                    title: "Searchs",
+                  ),
             ));
       } else if (index == 3) {
         Navigator.push(
             context,
             MaterialPageRoute(
-              builder: (context) => Orders(
-                title: "Orders",
-              ),
+              builder: (context) =>
+                  Orders(
+                    title: "Orders",
+                  ),
             ));
       }
     });
@@ -89,89 +92,151 @@ class _Homepagescreen extends State<Homepagescreen> {
     return arr;
   }
 
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        backgroundColor: Theme.of(context).colorScheme.inversePrimary,
-        title: Text(widget.title),
+        backgroundColor: Theme
+            .of(context)
+            .colorScheme
+            .inversePrimary,
+        title: Align(
+          alignment: Alignment.centerRight, // جعل العنوان على اليمين
+          child: Text(
+            widget.title,
+            textDirection: TextDirection.rtl,
+          ),
+        ),
       ),
-      body: FutureBuilder(
-        future: getCategories(),
-        builder: (context, projectSnap) {
-          if (projectSnap.hasData) {
-            if (projectSnap.data.length == 0) {
-              return SizedBox(
-                height: MediaQuery.of(context).size.height * 2,
-                child: Align(
+      body: Container(
+        decoration: const BoxDecoration(
+          gradient: LinearGradient(
+            begin: Alignment.topCenter,
+            end: Alignment.bottomCenter,
+            colors: [
+              Colors.blue,
+              Colors.white,
+              Colors.orange,
+            ],
+          ),
+        ),
+        child: FutureBuilder(
+          future: getCategories(),
+          builder: (context, projectSnap) {
+            if (projectSnap.hasData) {
+              if (projectSnap.data.length == 0) {
+                return SizedBox(
+                  height: MediaQuery
+                      .of(context)
+                      .size
+                      .height * 2,
+                  child: Align(
                     alignment: Alignment.center,
-                    child: Text('אין תוצאות',
-                        style: TextStyle(fontSize: 23, color: Colors.black))),
-              );
-            } else {
-              return Column(
-                crossAxisAlignment: CrossAxisAlignment.center,
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: <Widget>[
-                  Expanded(
+                    child: Text(
+                      'אין תוצאות',
+                      style: TextStyle(
+                        fontSize: 23,
+                        color: Colors.black,
+                      ),
+                      textDirection: TextDirection.rtl,
+                    ),
+                  ),
+                );
+              } else {
+                return Column(
+                  crossAxisAlignment: CrossAxisAlignment.center,
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: <Widget>[
+                    Expanded(
                       child: ListView.builder(
                         itemCount: projectSnap.data.length,
                         itemBuilder: (context, index) {
                           Category project = projectSnap.data[index];
-
                           return Card(
-                              child: ListTile(
-                                onTap: () async {
-                                  final SharedPreferences prefs =
-                                  await SharedPreferences.getInstance();
-                                  await prefs.setString(
-                                      'lastCategoryID', project.categoryID.toString());
+                            color: Colors.white.withOpacity(0.8),
+                            margin: EdgeInsets.symmetric(
+                                horizontal: 10, vertical: 8),
+                            shape: RoundedRectangleBorder(
+                              borderRadius: BorderRadius.circular(15),
+                            ),
+                            elevation: 5,
+                            child: ListTile(
+                              contentPadding: EdgeInsets.all(15),
+                              onTap: () async {
+                                final SharedPreferences prefs =
+                                await SharedPreferences.getInstance();
+                                await prefs.setString(
+                                    'lastCategoryID',
+                                    project.categoryID.toString());
 
-                                  Navigator.push(
-                                    context,
-                                    MaterialPageRoute(
-                                        builder: (context) => ProductsListScreen(
-                                            title: project.categoryName)),
-                                  );
-                                },
-                                title: Row(
-                                  children: [
-                                    Text(
-                                      project.categoryName!,
+                                Navigator.push(
+                                  context,
+                                  MaterialPageRoute(
+                                    builder: (context) =>
+                                        ProductsListScreen(
+                                          title: project.categoryName,
+                                        ),
+                                  ),
+                                );
+                              },
+                              title: Row(
+                                textDirection: TextDirection.rtl,
+                                // النصوص من اليمين لليسار
+                                mainAxisAlignment: MainAxisAlignment
+                                    .spaceBetween,
+                                children: [
+                                  Expanded(
+                                    child: Text(
+                                      project.categoryName ?? '',
                                       style: TextStyle(
-                                          fontSize: 25,
-                                          fontWeight: FontWeight.bold,
-                                          color: Colors.black),
+                                        fontSize: 25,
+                                        fontWeight: FontWeight.bold,
+                                        color: Colors.black,
+                                      ),
+                                      textDirection: TextDirection.rtl,
                                     ),
-                                    CachedNetworkImage(
+                                  ),
+                                  SizedBox(width: 10),
+                                  ClipRRect(
+                                    borderRadius: BorderRadius.circular(10),
+                                    child: CachedNetworkImage(
                                       imageUrl: project.imageURC,
                                       placeholder: (context, url) =>
-                                      const CircularProgressIndicator(),
+                                          CircularProgressIndicator(),
                                       errorWidget: (context, url, error) =>
-                                      const Icon(Icons.error),
+                                          Icon(Icons.error),
                                       width: 80,
                                       height: 80,
+                                      fit: BoxFit.cover,
                                     ),
-                                  ],
-                                ),
-                              ));
+                                  ),
+                                ],
+                              ),
+                            ),
+                          );
                         },
-                      )),
-                ],
+                      ),
+                    ),
+                  ],
+                );
+              }
+            } else if (projectSnap.hasError) {
+              return Center(
+                child: Text(
+                  'שגיאה, נסה שוב',
+                  style: TextStyle(fontSize: 22, fontWeight: FontWeight.bold),
+                  textDirection: TextDirection.rtl,
+                ),
               );
             }
-          } else if (projectSnap.hasError) {
-            print(projectSnap.error);
             return Center(
-                child: Text('שגיאה, נסה שוב',
-                    style:
-                    TextStyle(fontSize: 22, fontWeight: FontWeight.bold)));
-          }
-          return Center(
               child: CircularProgressIndicator(
                 color: Colors.red,
-              ));
-        },
+              ),
+            );
+          },
+        ),
       ),
       drawer: Drawer(
         child: ListView(
@@ -181,10 +246,17 @@ class _Homepagescreen extends State<Homepagescreen> {
               decoration: BoxDecoration(
                 color: Colors.blue,
               ),
-              child: Text('Drawer Header'),
+              child: Align(
+                alignment: Alignment.centerRight,
+                child: Text(
+                  'ברוך הבא',
+                  style: TextStyle(color: Colors.white, fontSize: 24),
+                  textDirection: TextDirection.rtl,
+                ),
+              ),
             ),
             ListTile(
-              title: const Text('Add Content'),
+              title: const Text('הוספת תוכן', textDirection: TextDirection.rtl),
               selected: _selectedIndex == 0,
               onTap: () {
                 _onItemTapped(0);
@@ -192,7 +264,8 @@ class _Homepagescreen extends State<Homepagescreen> {
               },
             ),
             ListTile(
-              title: const Text('Edit Profile'),
+              title: const Text(
+                  'עריכת פרופיל', textDirection: TextDirection.rtl),
               selected: _selectedIndex == 1,
               onTap: () {
                 _onItemTapped(1);
@@ -200,7 +273,7 @@ class _Homepagescreen extends State<Homepagescreen> {
               },
             ),
             ListTile(
-              title: const Text('התנתקות'),
+              title: const Text('התנתקות', textDirection: TextDirection.rtl),
               selected: _selectedIndex == 2,
               onTap: () {
                 _onItemTapped(2);
@@ -211,7 +284,7 @@ class _Homepagescreen extends State<Homepagescreen> {
         ),
       ),
       bottomNavigationBar: BottomNavigationBar(
-        backgroundColor: Colors.white, // الخلفية بيضاء
+        backgroundColor: Colors.white,
         items: const <BottomNavigationBarItem>[
           BottomNavigationBarItem(
             icon: Icon(Icons.home),
@@ -231,8 +304,8 @@ class _Homepagescreen extends State<Homepagescreen> {
           ),
         ],
         currentIndex: _selectedIndex,
-        selectedItemColor: Colors.orange, // اللون البرتقالي للأيقونة المحددة
-        unselectedItemColor: Colors.blue, // اللون الأزرق للأيقونات غير المحددة
+        selectedItemColor: Colors.orange,
+        unselectedItemColor: Colors.blue,
         onTap: _onItemTapped,
       ),
     );

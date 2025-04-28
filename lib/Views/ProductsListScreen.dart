@@ -1,14 +1,9 @@
 import 'dart:convert';
-import 'package:finalproject/Models/Category.dart';
 import 'package:finalproject/Models/Product.dart';
 import 'package:flutter/material.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import '../Utils/ClientConfing.dart';
-import 'EditProfile.dart';
-import 'MyOrdersListScreen.dart';
 import 'ProductDetailsScreen.dart';
-import 'SearchScreen.dart';
-import 'MyCartScreen.dart';
 import 'package:http/http.dart' as http;
 
 class ProductsListScreen extends StatefulWidget {
@@ -21,16 +16,11 @@ class ProductsListScreen extends StatefulWidget {
 }
 
 class _ProductsListScreen extends State<ProductsListScreen> {
-  static const TextStyle optionStyle =
-      TextStyle(fontSize: 30, fontWeight: FontWeight.bold);
-
   Future getProducts() async {
     final SharedPreferences prefs = await SharedPreferences.getInstance();
     final String? lastCategoryID = prefs.getString('lastCategoryID');
-    var url =
-        "products/getProducts.php?categoryID=" + lastCategoryID.toString();
+    var url = "products/getProducts.php?categoryID=" + lastCategoryID.toString();
     final response = await http.get(Uri.parse(serverPath + url));
-    print(serverPath + url);
     List<Product> arr = [];
 
     for (Map<String, dynamic> i in json.decode(response.body)) {
@@ -43,100 +33,134 @@ class _ProductsListScreen extends State<ProductsListScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: Colors.blue.shade50,
       appBar: AppBar(
-        backgroundColor: Theme.of(context).colorScheme.inversePrimary,
-        title: Text(widget.title),
+        backgroundColor: Colors.blueAccent,
+        title: Row(
+          mainAxisAlignment: MainAxisAlignment.end,
+          children: [
+            Text(
+              widget.title,
+              textDirection: TextDirection.rtl, // جعل النص من اليمين
+              style: const TextStyle(
+                fontWeight: FontWeight.bold,
+                color: Colors.white,
+                fontSize: 22,
+              ),
+            ),
+          ],
+        ),
       ),
       body: FutureBuilder(
         future: getProducts(),
         builder: (context, projectSnap) {
           if (projectSnap.hasData) {
             if (projectSnap.data.length == 0) {
-              return SizedBox(
-                height: MediaQuery.of(context).size.height * 2,
-                child: Align(
-                    alignment: Alignment.center,
-                    child: Text('אין תוצאות',
-                        style: TextStyle(fontSize: 23, color: Colors.black))),
+              return Center(
+                child: Text(
+                  'אין תוצאות',
+                  style: TextStyle(fontSize: 23, color: Colors.black),
+                ),
               );
             } else {
-              return Column(
-                crossAxisAlignment: CrossAxisAlignment.center,
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: <Widget>[
-                  Expanded(
+              return Padding(
+                padding: const EdgeInsets.all(12.0),
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    const SizedBox(height: 10),
+                    Align(
+                      alignment: Alignment.centerRight,
+                      child: const Text(
+                        ' :רשימת המוצרים',
+                        style: TextStyle(
+                          fontSize: 20,
+                          fontWeight: FontWeight.bold,
+                          color: Colors.black87,
+                        ),
+                      ),
+                    ),
+                    const SizedBox(height: 10),
+                    Expanded(
                       child: ListView.builder(
-                    itemCount: projectSnap.data.length,
-                    itemBuilder: (context, index) {
-                      Product project = projectSnap.data[index];
+                        itemCount: projectSnap.data.length,
+                        itemBuilder: (context, index) {
+                          Product project = projectSnap.data[index];
 
-                      return Card(
-                          child: ListTile(
-                        onTap: () async {
-                          final SharedPreferences prefs =
-                              await SharedPreferences.getInstance();
-                          await prefs.setString(
-                              'lastProductID', project.productID);
+                          return Card(
+                            shape: RoundedRectangleBorder(
+                              borderRadius: BorderRadius.circular(12),
+                            ),
+                            margin: const EdgeInsets.symmetric(vertical: 8),
+                            elevation: 4,
+                            child: ListTile(
+                              contentPadding: const EdgeInsets.all(12),
+                              onTap: () async {
+                                final SharedPreferences prefs = await SharedPreferences.getInstance();
+                                await prefs.setString('lastProductID', project.productID);
 
-                          Navigator.push(
-                            context,
-                            MaterialPageRoute(
-                                builder: (context) => ProductDetailsScreen(
+                                Navigator.push(
+                                  context,
+                                  MaterialPageRoute(
+                                    builder: (context) => ProductDetailsScreen(
                                       title: project.productName,
-                                    )),
+                                    ),
+                                  ),
+                                );
+                              },
+                              title: Text(
+                                project.productName ?? '',
+                                style: const TextStyle(
+                                  fontSize: 18,
+                                  fontWeight: FontWeight.bold,
+                                  color: Colors.black,
+                                ),
+                                textDirection: TextDirection.rtl, // النص من اليمين
+                              ),
+                              subtitle: Padding(
+                                padding: const EdgeInsets.only(top: 6.0),
+                                child: Text(
+                                  "${project.productPrice} ₪",
+                                  style: const TextStyle(
+                                    fontSize: 16,
+                                    color: Colors.black87,
+                                  ),
+                                  textDirection: TextDirection.rtl, // النص من اليمين
+                                ),
+                              ),
+                              trailing: ClipRRect(
+                                borderRadius: BorderRadius.circular(10),
+                                child: Image.network(
+                                  project.imageURL,
+                                  width: 120,  // حجم الصورة أكبر لعرض أفضل
+                                  height: 120, // حجم الصورة أكبر لعرض أفضل
+                                  fit: BoxFit.contain,  // لعرض الصورة كاملة وواضحة
+                                ),
+                              ),
+                              isThreeLine: false,
+                            ),
                           );
                         },
-                        title: Text(
-                          project.productName!,
-                          style: TextStyle(
-                              fontSize: 16,
-                              fontWeight: FontWeight.bold,
-                              color: Colors.black),
-                        ), // Icon(Icons.timer),
-                        subtitle: Text(
-                          project.productPrice!.toString() + "שח ",
-                          style: TextStyle(
-                              fontSize: 16,
-                              fontWeight: FontWeight.bold,
-                              color: Colors.black),
-                        ),
-                        trailing: Image.network(
-                          project.imageURL,
-                        ),
-                        // trailing: Container(
-                        //   decoration: const BoxDecoration(
-                        //     color: Colors.blue,
-                        //     borderRadius: BorderRadius.all(Radius.circular(5)),
-                        //   ),
-                        //   padding: const EdgeInsets.symmetric(
-                        //     horizontal: 12,
-                        //     vertical: 4,
-                        //   ),
-                        //   child: Text(
-                        //     project.totalHours!,   // + "שעות "
-                        //     overflow: TextOverflow.ellipsis,
-                        //     style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold, color: Colors.white),
-                        //   ),
-                        // ),
-
-                        isThreeLine: false,
-                      ));
-                    },
-                  )),
-                ],
+                      ),
+                    ),
+                  ],
+                ),
               );
             }
           } else if (projectSnap.hasError) {
             print(projectSnap.error);
             return Center(
-                child: Text('שגיאה, נסה שוב',
-                    style:
-                        TextStyle(fontSize: 22, fontWeight: FontWeight.bold)));
+              child: Text(
+                'שגיאה, נסה שוב',
+                style: TextStyle(fontSize: 22, fontWeight: FontWeight.bold),
+              ),
+            );
           }
-          return Center(
-              child: new CircularProgressIndicator(
-            color: Colors.red,
-          ));
+          return const Center(
+            child: CircularProgressIndicator(
+              color: Colors.red,
+            ),
+          );
         },
       ),
     );
