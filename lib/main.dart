@@ -136,8 +136,9 @@ class _MyHomePageState extends State<MyHomePage> {
                     const SizedBox(height: 30),
                     TextField(
                       controller: _txtEmail,
+                      textAlign: TextAlign.right, // الكتابة من اليمين لليسار
                       decoration: InputDecoration(
-                        labelText: 'מייל או מספר טלפון',
+                        labelText: 'מייל או מספר טלפון', // العبارات بالعبرية من اليمين لليسار
                         prefixIcon: const Icon(Icons.email),
                         border: OutlineInputBorder(borderRadius: BorderRadius.circular(12)),
                       ),
@@ -146,8 +147,9 @@ class _MyHomePageState extends State<MyHomePage> {
                     TextField(
                       controller: _txtPassword,
                       obscureText: true,
+                      textAlign: TextAlign.right, // الكتابة من اليمين لليسار
                       decoration: InputDecoration(
-                        labelText: 'סיסמה',
+                        labelText: 'סיסמה', // العبارات بالعبرية من اليمين لليسار
                         prefixIcon: const Icon(Icons.lock),
                         border: OutlineInputBorder(borderRadius: BorderRadius.circular(12)),
                       ),
@@ -165,11 +167,11 @@ class _MyHomePageState extends State<MyHomePage> {
                           shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12)),
                         ),
                         child: const Text(
-                          'כניסה',
+                          'כניסה', // العبارات بالعبرية من اليمين لليسار
                           style: TextStyle(
                             fontSize: 18,
                             fontWeight: FontWeight.bold,
-                            color: Colors.white, // النص أبيض في الزر
+                            color: Colors.white,
                           ),
                         ),
                       ),
@@ -182,7 +184,7 @@ class _MyHomePageState extends State<MyHomePage> {
                           Navigator.push(
                             context,
                             MaterialPageRoute(
-                              builder: (context) => const RegisterScreen(title: "חשבון חדש"),
+                              builder: (context) => const RegisterScreen(title: "חשבון חדש"), // العبارات بالعبرية من اليمين لليسار
                             ),
                           );
                         },
@@ -191,7 +193,7 @@ class _MyHomePageState extends State<MyHomePage> {
                           shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12)),
                         ),
                         child: Text(
-                          'יצירת חשבון חדש',
+                          'יצירת חשבון חדש', // العبارات بالعبرية من اليمين لليسار
                           style: TextStyle(color: Colors.deepOrange.shade700, fontSize: 16),
                         ),
                       ),
