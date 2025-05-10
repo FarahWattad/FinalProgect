@@ -24,7 +24,7 @@ class _Homepagescreen extends State<Homepagescreen> {
   int _counter = 0;
   int _selectedIndex = 0;
   static const TextStyle optionStyle =
-  TextStyle(fontSize: 30, fontWeight: FontWeight.bold);
+      TextStyle(fontSize: 30, fontWeight: FontWeight.bold);
   static const List<Widget> _widgetOptions = <Widget>[
     Text(
       'Index 0: ראשי',
@@ -52,28 +52,25 @@ class _Homepagescreen extends State<Homepagescreen> {
         Navigator.push(
             context,
             MaterialPageRoute(
-              builder: (context) =>
-                  ShoppingCart(
-                    title: "ShoppingCart",
-                  ),
+              builder: (context) => MyCartScreen(
+                title: "MyCartScreen",
+              ),
             ));
       } else if (index == 2) {
         Navigator.push(
             context,
             MaterialPageRoute(
-              builder: (context) =>
-                  Searchs(
-                    title: "Searchs",
-                  ),
+              builder: (context) => Searchs(
+                title: "Searchs",
+              ),
             ));
       } else if (index == 3) {
         Navigator.push(
             context,
             MaterialPageRoute(
-              builder: (context) =>
-                  Orders(
-                    title: "Orders",
-                  ),
+              builder: (context) => Orders(
+                title: "Orders",
+              ),
             ));
       }
     });
@@ -92,15 +89,11 @@ class _Homepagescreen extends State<Homepagescreen> {
     return arr;
   }
 
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        backgroundColor: Theme
-            .of(context)
-            .colorScheme
-            .inversePrimary,
+        backgroundColor: Theme.of(context).colorScheme.inversePrimary,
         title: Align(
           alignment: Alignment.centerRight, // جعل العنوان على اليمين
           child: Text(
@@ -127,10 +120,7 @@ class _Homepagescreen extends State<Homepagescreen> {
             if (projectSnap.hasData) {
               if (projectSnap.data.length == 0) {
                 return SizedBox(
-                  height: MediaQuery
-                      .of(context)
-                      .size
-                      .height * 2,
+                  height: MediaQuery.of(context).size.height * 2,
                   child: Align(
                     alignment: Alignment.center,
                     child: Text(
@@ -165,26 +155,24 @@ class _Homepagescreen extends State<Homepagescreen> {
                               contentPadding: EdgeInsets.all(15),
                               onTap: () async {
                                 final SharedPreferences prefs =
-                                await SharedPreferences.getInstance();
-                                await prefs.setString(
-                                    'lastCategoryID',
+                                    await SharedPreferences.getInstance();
+                                await prefs.setString('lastCategoryID',
                                     project.categoryID.toString());
 
                                 Navigator.push(
                                   context,
                                   MaterialPageRoute(
-                                    builder: (context) =>
-                                        ProductsListScreen(
-                                          title: project.categoryName,
-                                        ),
+                                    builder: (context) => ProductsListScreen(
+                                      title: project.categoryName,
+                                    ),
                                   ),
                                 );
                               },
                               title: Row(
                                 textDirection: TextDirection.rtl,
                                 // النصوص من اليمين لليسار
-                                mainAxisAlignment: MainAxisAlignment
-                                    .spaceBetween,
+                                mainAxisAlignment:
+                                    MainAxisAlignment.spaceBetween,
                                 children: [
                                   Expanded(
                                     child: Text(
@@ -236,51 +224,6 @@ class _Homepagescreen extends State<Homepagescreen> {
               ),
             );
           },
-        ),
-      ),
-      drawer: Drawer(
-        child: ListView(
-          padding: EdgeInsets.zero,
-          children: [
-            const DrawerHeader(
-              decoration: BoxDecoration(
-                color: Colors.blue,
-              ),
-              child: Align(
-                alignment: Alignment.centerRight,
-                child: Text(
-                  'ברוך הבא',
-                  style: TextStyle(color: Colors.white, fontSize: 24),
-                  textDirection: TextDirection.rtl,
-                ),
-              ),
-            ),
-            ListTile(
-              title: const Text('הוספת תוכן', textDirection: TextDirection.rtl),
-              selected: _selectedIndex == 0,
-              onTap: () {
-                _onItemTapped(0);
-                Navigator.pop(context);
-              },
-            ),
-            ListTile(
-              title: const Text(
-                  'עריכת פרופיל', textDirection: TextDirection.rtl),
-              selected: _selectedIndex == 1,
-              onTap: () {
-                _onItemTapped(1);
-                Navigator.pop(context);
-              },
-            ),
-            ListTile(
-              title: const Text('התנתקות', textDirection: TextDirection.rtl),
-              selected: _selectedIndex == 2,
-              onTap: () {
-                _onItemTapped(2);
-                Navigator.pop(context);
-              },
-            ),
-          ],
         ),
       ),
       bottomNavigationBar: BottomNavigationBar(
