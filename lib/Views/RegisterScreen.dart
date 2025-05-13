@@ -1,17 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
-
 import '../Models/User.dart';
 import '../Utils/ClientConfing.dart';
-import '../Utils/db.dart';
 import 'Homepagescreen.dart';
 import '../Utils/Utils.dart';
 
 class RegisterScreen extends StatefulWidget {
   const RegisterScreen({super.key, required this.title});
-
   final String title;
-
   @override
   State<RegisterScreen> createState() => RegisterScreenPageState();
 }
@@ -36,7 +32,6 @@ class RegisterScreenPageState extends State<RegisterScreen> {
           us.Email +
           "&password=" +
           us.Password;
-
       final response = await http.get(Uri.parse(serverPath + url));
       if (response.statusCode == 200) {
         setState(() {});
@@ -69,7 +64,6 @@ class RegisterScreenPageState extends State<RegisterScreen> {
         us.Password = _txtPassword.text;
         us.ConfirmPassword = _txtConfirmPassword.text;
         us.Email = _txtEmail.text;
-
         insertUser(context, us);
       } else {
         var uti = Utils();
@@ -77,7 +71,7 @@ class RegisterScreenPageState extends State<RegisterScreen> {
       }
     } else {
       var uti = Utils();
-      uti.showMyDialog(context, "Required", "Please fill in all fields");
+      uti.showMyDialog(context, "חובה", "הזן את הנתונים שלך");
     }
   }
 
@@ -95,8 +89,6 @@ class RegisterScreenPageState extends State<RegisterScreen> {
             children: <Widget>[
               // تم حذف الكلمة هنا من الجزء البرتقالي
               SizedBox(height: 30),
-
-              // Input Fields Section
               Padding(
                 padding: const EdgeInsets.symmetric(horizontal: 20),
                 child: Column(

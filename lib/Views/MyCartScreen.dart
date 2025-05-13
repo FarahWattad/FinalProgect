@@ -51,30 +51,35 @@ class MyCartScreenState extends State<MyCartScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        backgroundColor: Colors.blue, // Blue color for the app bar
-        title: Text(widget.title),
+        backgroundColor: Colors.blue,
+        title: Text("הסל שלי"), // 👈 العنوان المعروض فقط تغيّر
       ),
       body: FutureBuilder<List<Product>>(
         future: getMyCart(),
         builder: (context, projectSnap) {
           if (projectSnap.connectionState == ConnectionState.waiting) {
             return Center(
-                child: CircularProgressIndicator(
-                  color: Colors.orange, // Orange loading indicator
-                ));
+              child: CircularProgressIndicator(color: Colors.orange),
+            );
           } else if (projectSnap.hasError) {
             return Center(
-                child: Text('שגיאה, נסה שוב',
-                    style: TextStyle(fontSize: 22, fontWeight: FontWeight.bold)));
+              child: Text(
+                'שגיאה, נסה שוב',
+                style: TextStyle(fontSize: 22, fontWeight: FontWeight.bold),
+              ),
+            );
           } else if (projectSnap.hasData) {
             final data = projectSnap.data!;
             if (data.isEmpty) {
               return SizedBox(
                 height: MediaQuery.of(context).size.height * 2,
                 child: Align(
-                    alignment: Alignment.center,
-                    child: Text('אין תוצאות',
-                        style: TextStyle(fontSize: 23, color: Colors.black))),
+                  alignment: Alignment.center,
+                  child: Text(
+                    'אין תוצאות',
+                    style: TextStyle(fontSize: 23, color: Colors.black),
+                  ),
+                ),
               );
             } else {
               return Column(
@@ -86,13 +91,13 @@ class MyCartScreenState extends State<MyCartScreen> {
                         Product project = data[index];
                         return Card(
                           margin: EdgeInsets.symmetric(vertical: 8),
-                          color: Colors.orange.shade50, // Light orange card
+                          color: Colors.orange.shade50,
                           child: ListTile(
                             onTap: () async {
                               final SharedPreferences prefs =
                               await SharedPreferences.getInstance();
-                              await prefs.setInt('lastProductID',
-                                  project.productID as int);
+                              await prefs.setInt(
+                                  'lastProductID', project.productID as int);
 
                               Navigator.push(
                                 context,
@@ -106,16 +111,18 @@ class MyCartScreenState extends State<MyCartScreen> {
                             title: Text(
                               project.productName ?? 'מוצר ללא שם',
                               style: TextStyle(
-                                  fontSize: 16,
-                                  fontWeight: FontWeight.bold,
-                                  color: Colors.black),
+                                fontSize: 16,
+                                fontWeight: FontWeight.bold,
+                                color: Colors.black,
+                              ),
                             ),
                             subtitle: Text(
                               "${project.productPrice} שח",
                               style: TextStyle(
-                                  fontSize: 16,
-                                  fontWeight: FontWeight.bold,
-                                  color: Colors.black),
+                                fontSize: 16,
+                                fontWeight: FontWeight.bold,
+                                color: Colors.black,
+                              ),
                             ),
                             trailing: Image.network(
                               project.imageURL,
@@ -139,7 +146,7 @@ class MyCartScreenState extends State<MyCartScreen> {
       bottomNavigationBar: TextButton(
         style: ButtonStyle(
           foregroundColor: MaterialStateProperty.all<Color>(Colors.white),
-          backgroundColor: MaterialStateProperty.all<Color>(Colors.blue), // Blue button
+          backgroundColor: MaterialStateProperty.all<Color>(Colors.blue),
         ),
         onPressed: () async {
           try {

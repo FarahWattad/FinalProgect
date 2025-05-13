@@ -1,16 +1,12 @@
 import 'package:flutter/material.dart';
-
 import 'Homepagescreen.dart';
 
 class EditProfile extends StatefulWidget {
   const EditProfile({super.key, required this.title});
-
   final String title;
-
   @override
   State<EditProfile> createState() => EditProfilePageState();
 }
-
 class EditProfilePageState extends State<EditProfile> {
   int _counter = 0;
 

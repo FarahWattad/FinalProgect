@@ -80,6 +80,8 @@ class _MyHomePageState extends State<MyHomePage> {
         await prefs.setString('userID', checkLoginModel.fromJson(jsonDecode(response.body)).userID!.toString());
         await prefs.setString('email', _txtEmail.text);
         await prefs.setString('password', _txtPassword.text);
+        await prefs.setString('FirstName', checkLoginModel.fromJson(jsonDecode(response.body)).FirstName!.toString());
+        await prefs.setString('LastName', checkLoginModel.fromJson(jsonDecode(response.body)).LastName!.toString());
 
         Navigator.push(
           context,
@@ -88,6 +90,8 @@ class _MyHomePageState extends State<MyHomePage> {
       }
     }
   }
+
+
 
   checkConnection() async {
     try {
@@ -100,6 +104,8 @@ class _MyHomePageState extends State<MyHomePage> {
       uti.showMyDialog(context, "אין אינטרנט", "האפליקציה דורשת חיבור לאינטרנט, נא להתחבר בבקשה");
     }
   }
+
+
 
   @override
   Widget build(BuildContext context) {
