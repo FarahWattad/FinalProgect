@@ -8,17 +8,12 @@ class Order{
     this.orderDetails="",
 
   });
-
   String totalPrice;
   String orderID;
   String orderTime;
   String fullNameOrder;
   String Address;
   String orderDetails;
-
-  // {"orderID":"1","totalPrice":"","address":"","orderTime":"0000-00-00","notes":"",
-  // "fullNameOrder":"\u05e4\u05e8\u05d7 ","orderDetails":"orderDetails"},
-
 
   factory Order.fromJson(Map<String,dynamic> json)=>Order(
     orderID: json["orderID"],
