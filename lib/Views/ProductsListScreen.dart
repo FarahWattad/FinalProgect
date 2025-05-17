@@ -5,7 +5,6 @@ import 'package:shared_preferences/shared_preferences.dart';
 import '../Utils/ClientConfing.dart';
 import 'ProductDetailsScreen.dart';
 import 'package:http/http.dart' as http;
-
 class ProductsListScreen extends StatefulWidget {
   const ProductsListScreen({super.key, required this.title});
 
@@ -97,7 +96,7 @@ class _ProductsListScreen extends State<ProductsListScreen> {
                               contentPadding: const EdgeInsets.all(12),
                               onTap: () async {
                                 final SharedPreferences prefs = await SharedPreferences.getInstance();
-                                await prefs.setString('lastProductID', project.productID);
+                                await prefs.setString('lastProductID', project.productID.toString());
 
                                 Navigator.push(
                                   context,

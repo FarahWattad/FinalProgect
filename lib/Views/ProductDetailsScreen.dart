@@ -4,12 +4,10 @@ import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 import 'package:shared_preferences/shared_preferences.dart';
 import '../Utils/ClientConfing.dart';
-
 class ProductDetailsScreen extends StatefulWidget {
   const ProductDetailsScreen({super.key, required this.title});
 
   final String title;
-
   @override
   State<ProductDetailsScreen> createState() => ProductPageState();
 }
@@ -125,7 +123,7 @@ class ProductPageState extends State<ProductDetailsScreen> {
                   textDirection: TextDirection.rtl, // اتجاه النص من اليمين لليسار
                 ),
                 Text(
-                  _currProduct.Warranty.toString(),
+                  _currProduct.warranty.toString(),
                   style: const TextStyle(
                     fontSize: 18,
                     color: Colors.black87,

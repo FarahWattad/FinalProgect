@@ -3,7 +3,6 @@ import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 import 'package:shared_preferences/shared_preferences.dart';
-
 import 'Models/checkLoginModel.dart';
 import 'Utils/ClientConfing.dart';
 import 'Utils/Utils.dart';
@@ -91,8 +90,6 @@ class _MyHomePageState extends State<MyHomePage> {
     }
   }
 
-
-
   checkConnection() async {
     try {
       final result = await InternetAddress.lookup('google.com');
@@ -104,8 +101,6 @@ class _MyHomePageState extends State<MyHomePage> {
       uti.showMyDialog(context, "אין אינטרנט", "האפליקציה דורשת חיבור לאינטרנט, נא להתחבר בבקשה");
     }
   }
-
-
 
   @override
   Widget build(BuildContext context) {
