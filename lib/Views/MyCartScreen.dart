@@ -29,14 +29,13 @@ class MyCartScreenState extends State<MyCartScreen> {
       final List<dynamic> jsonData = json.decode(response.body);
       for (Map<String, dynamic> i in jsonData) {
         Map<String, dynamic> completeJson = {
-          "productID": i["productID"] ?? "",
-          "productName": i["productName"] ?? "",
-          "productPrice": 999,
-          "CreatedDateTime": i["CreatedDateTime"] ?? "",
-          "Warranty": i["Warranty"] ?? 0,
-          "categoryID": i["categoryID"] ?? "",
-          "imageURL": i["imageURL"] ?? "",
-          "quantity": i["quantity"] ?? "1",
+          "productID": i["productID"],
+          "productName": i["productName"],
+          "productPrice": i["productPrice"],
+          "Warranty": i["Warranty"],
+          "categoryID": i["categoryID"],
+          "imageURL": i["imageURL"],
+          "quantity": i["quantity"],
         };
         arr.add(Product.fromJson(completeJson));
       }
@@ -52,7 +51,7 @@ class MyCartScreenState extends State<MyCartScreen> {
     return Scaffold(
       appBar: AppBar(
         backgroundColor: Colors.blue,
-        title: Text("הסל שלי"), // 👈 العنوان المعروض فقط تغيّر
+        title: Text("הסל שלי"), //
       ),
       body: FutureBuilder<List<Product>>(
         future: getMyCart(),

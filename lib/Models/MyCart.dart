@@ -1,12 +1,12 @@
 class MyCart {
   MyCart({
-    this.userID = "",
-    this.productID = "",
-    this.quantity = "",
-    this.productName = "",
-    this.categoryID = "",
-    this.imageURL = "",
-    this.productPrice = "",
+    required this.userID,
+    required this.productID,
+    required this.quantity,
+    required this.productName,
+    required this.categoryID,
+    required this.imageURL,
+    required this.productPrice,
 
   });
   String userID;
@@ -18,12 +18,13 @@ class MyCart {
   String productPrice;
   factory MyCart.fromJson(Map<String, dynamic> json)=>
       MyCart(
-        // userID: json["userID"],
-        // productID: json["productID"],
-        // quantity: json["quantity"],
-        // productName: json["productName"],
-        // categoryID: json["categoryID"],
-        // imageURL: json["imageURL"],
+         userID: json["userID"] ?? 0,
+         productID: json["productID"],
+         productPrice: json["productPrice"],
+         quantity: json["quantity"],
+         productName: json["productName"],
+         categoryID: json["categoryID"],
+         imageURL: json["imageURL"],
 
       );
   Map<String, dynamic> toJson() =>
@@ -31,6 +32,8 @@ class MyCart {
         "userID":userID  ,
         "productID":productID ,
         "quantity": quantity,
+        "productPrice": productPrice,
+
         "productname": productName,
         "categoryID": categoryID,
         "imageURL": imageURL,

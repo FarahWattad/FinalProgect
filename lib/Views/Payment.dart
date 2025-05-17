@@ -3,7 +3,6 @@ import 'package:shared_preferences/shared_preferences.dart';
 import '../Models/Product.dart';
 import '../Utils/ClientConfing.dart';
 import 'package:http/http.dart' as http;
-
 class Payment extends StatefulWidget {
   final String userName;
   final List<Product> cartItems;
@@ -98,12 +97,8 @@ class _PaymentState extends State<Payment> {
       ),
     );
   }
-
-
   @override
   Widget build(BuildContext context) {
-
-
     return Directionality(
       textDirection: TextDirection.rtl,
       child: Scaffold(
