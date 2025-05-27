@@ -33,6 +33,7 @@ class ProductPageState extends State<ProductDetailsScreen> {
         userID! +
         "&productID=" +
         _currProduct.productID.toString();
+    print(serverPath + url);
     final response = await http.get(Uri.parse(serverPath + url));
     setState(() {});
 

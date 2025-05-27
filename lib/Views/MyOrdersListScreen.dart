@@ -82,6 +82,7 @@ class OrdersPageState extends State<Orders> {
             if (projectSnap.connectionState == ConnectionState.waiting) {
               return Center(child: CircularProgressIndicator(color: Colors.blue));
             } else if (projectSnap.hasError) {
+              print(projectSnap.error);
               return Center(
                 child: Text(
                   'שגיאה, נסה שוב',
