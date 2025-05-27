@@ -25,6 +25,7 @@ class MyCartScreenState extends State<MyCartScreen> {
 
       var url = "carts/getMyCart.php?userID=" + (userID ?? "1");
       final response = await http.get(Uri.parse(serverPath + url));
+      print(serverPath + url);
       List<Product> arr = [];
       final List<dynamic> jsonData = json.decode(response.body);
       for (Map<String, dynamic> i in jsonData) {

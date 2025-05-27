@@ -120,7 +120,6 @@ class OrdersPageState extends State<Orders> {
                       subtitle: Text(
                         "מספר הזמנה: ${project.orderID}\n"
                             "תאריך הזמנה: ${project.orderTime}\n"
-                            "סה\"כ: ${project.totalPrice} שח\n"
                             "${project.fullNameOrder}\n"
                            "פרטי ההזמנה: ${project.orderDetails}\n" ,
 
