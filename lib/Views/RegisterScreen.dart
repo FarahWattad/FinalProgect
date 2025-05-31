@@ -33,6 +33,7 @@ class RegisterScreenPageState extends State<RegisterScreen> {
           "&password=" +
           us.Password;
       final response = await http.get(Uri.parse(serverPath + url));
+      print(serverPath + url);
       if (response.statusCode == 200) {
         setState(() {});
         Navigator.push(
